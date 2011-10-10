@@ -1,0 +1,8 @@
+
+META-INF
+javax
+javax/transaction
+javax/transaction/xa
+META-INF/maven
+META-INF/maven/org.jboss.javaee
+META-INF/maven/org.jboss.javaee/jboss-transaction-api
