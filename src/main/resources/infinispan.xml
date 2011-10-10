@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    infinispan.xml
+    This is the testing configuration, running in LOCAL clustering mode to speedup tests.
+-->
+<infinispan
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="urn:infinispan:config:5.0 http://www.infinispan.org/schemas/infinispan-config-5.0.xsd"
+    xmlns="urn:infinispan:config:5.0">
+
+    <global>
+    </global>
+
+    <!-- *************************** -->
+    <!--   Default cache settings    -->
+    <!-- *************************** -->
+
+    <default>
+    </default>
+
+    <!-- *************************************** -->
+    <!--     Cache to store the OGM entities     -->
+    <!-- *************************************** -->
+    <namedCache
+        name="ENTITIES">
+    </namedCache>
+
+    <!-- *********************************************** -->
+    <!--   Cache to store the relations across entities  -->
+    <!-- *********************************************** -->
+    <namedCache
+        name="ASSOCIATIONS">
+    </namedCache>
+
+    <!-- ***************************** -->
+    <!--   Cache to store identifiers  -->
+    <!-- ***************************** -->
+    <namedCache
+        name="IDENTIFIERS">
+    </namedCache>
+
+</infinispan>
