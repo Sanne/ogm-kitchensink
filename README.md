@@ -7,8 +7,8 @@ ogm-kitchensink is a [OGM](http://www.hibernate.org/subprojects/ogm.html) demo a
 
 ## How to build it
 
-* Set that the environment variable JBOSS_HOME is set and points to the installation directory of a JBoss AS 7 installation
-*     mvn package
+* Set the environment variable JBOSS_HOME and ensure that it points to the installation directory of a JBoss AS 7 installation
+* `mvn package`
                                                   
                                                   
 ## Running tests
@@ -21,10 +21,7 @@ ogm-kitchensink is a [OGM](http://www.hibernate.org/subprojects/ogm.html) demo a
 
 ### Locally
 
-* Start AS 7
-    $JBOSS_AS/bin/standalone.sh
-
-* Build and deploy the webapp
-    mvn package jboss-as:deploy
+* Start AS 7: `$JBOSS_AS/bin/standalone.sh`
+* Build and deploy the webapp: `mvn package jboss-as:deploy`
 
 ### OpenShift
