@@ -58,9 +58,9 @@ public class MemberResourceRESTService {
 	}
 
    @GET
-   @Path("/{id:[0-9][0-9]*}")
+   @Path("/{id:[a-z-0-9]+}")
    @Produces("text/xml")
-   public Member lookupMemberById(@PathParam("id") long id) {
+   public Member lookupMemberById(@PathParam("id") String id) {
       return em.find(Member.class, id);
    }
 }

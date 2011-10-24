@@ -9,6 +9,9 @@ import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 import org.apache.lucene.search.Query;
 import org.jboss.as.quickstarts.kitchensink.model.Member;
@@ -35,31 +38,33 @@ public class MemberListProducer {
 	}
 
 	public void onMemberListChanged(@Observes(notifyObserver = Reception.IF_EXISTS) final Member member) {
-		retrieveAllMembersOrderedByName();
+		retrieveAllMembersWithCriteria();
 	}
 
 	@PostConstruct
-	public void retrieveAllMembersOrderedByName() {
-//      CriteriaBuilder cb = em.getCriteriaBuilder();
-//      CriteriaQuery<Member> criteria = cb.createQuery(Member.class);
-//      Root<Member> member = criteria.from(Member.class);
-//      // Swap criteria statements if you would like to try out type-safe criteria queries, a new
-//      // feature in JPA 2.0
-//      // criteria.select(member).orderBy(cb.asc(member.get(Member_.name)));
-//      criteria.select(member).orderBy(cb.asc(member.get("name")));
-		FullTextQuery fullTextQuery = createMatchAllFulltextQuery();
-		members = fullTextQuery.getResultList();
+	public void retrieveAllMembersWithCriteria() {
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<Member> criteria = cb.createQuery( Member.class );
+		Root<Member> member = criteria.from( Member.class );
+		criteria.select( member ).orderBy( cb.asc( member.get( "name" ) ) );
+		members = em.createQuery( criteria ).getResultList();
 	}
 
-	private FullTextQuery createMatchAllFulltextQuery() {
-		FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager( em );
-		QueryBuilder queryBuilder = fullTextEntityManager.getSearchFactory()
-				.buildQueryBuilder()
-				.forEntity( Member.class )
-				.get();
-		Query query = queryBuilder.all().createQuery();
-		FullTextQuery fulltextQuery = fullTextEntityManager.createFullTextQuery( query );
-		fulltextQuery.initializeObjectsWith( ObjectLookupMethod.SKIP, DatabaseRetrievalMethod.FIND_BY_ID );
-		return fulltextQuery;
-	}
+//	@PostConstruct
+//	public void retrieveAllMembersUsingHibernateSearch() {
+//		FullTextQuery fullTextQuery = createMatchAllFulltextQuery();
+//		members = fullTextQuery.getResultList();
+//	}
+
+//	private FullTextQuery createMatchAllFulltextQuery() {
+//		FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager( em );
+//		QueryBuilder queryBuilder = fullTextEntityManager.getSearchFactory()
+//				.buildQueryBuilder()
+//				.forEntity( Member.class )
+//				.get();
+//		Query query = queryBuilder.all().createQuery();
+//		FullTextQuery fulltextQuery = fullTextEntityManager.createFullTextQuery( query );
+//		fulltextQuery.initializeObjectsWith( ObjectLookupMethod.SKIP, DatabaseRetrievalMethod.FIND_BY_ID );
+//		return fulltextQuery;
+//	}
 }

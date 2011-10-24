@@ -44,6 +44,7 @@ public class MemberRegistration {
    public void register() throws Exception {
       log.info("Registering " + newMember.getName());
       em.persist(newMember);
+	  em.flush();
       memberEventSrc.fire(newMember);
       initNewMember();
    }
