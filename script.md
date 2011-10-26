@@ -15,15 +15,15 @@
   `> undeploy target/ogm-kitchensink.war
    > quit`
 
-
 # OGM
 * Switch to OGM
-** Change persistence provider in _persistence.xml_
-* Deploy:
+       * Change persistence provider in _persistence.xml_
+       * Enable Hibernate 3 module
+       * Switch to UUID as entity ids
+       * Switch to Seach for querying
+* Deploy w/ maven plugin:
   `$ mvn clean package
    $ mvn jboss-as:deploy`
-* Deploy maven plugin
-
 
 # OpenShift
 

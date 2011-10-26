@@ -16,9 +16,10 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Entity
 public class ContactDetails {
 	@Id
-	@GeneratedValue(generator = "uuid")
-	@GenericGenerator(name = "uuid", strategy = "uuid2")
-	private String id;
+	@GeneratedValue
+//	@GeneratedValue(generator = "uuid")
+//	@GenericGenerator(name = "uuid", strategy = "uuid2")
+	private long id;
 
 	@NotNull
 	@NotEmpty
@@ -32,7 +33,7 @@ public class ContactDetails {
 	@Field
 	private String phoneNumber;
 
-	public String getId() {
+	public long getId() {
 		return id;
 	}
 

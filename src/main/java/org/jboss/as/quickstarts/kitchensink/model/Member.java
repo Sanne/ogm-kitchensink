@@ -18,7 +18,6 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
@@ -29,9 +28,10 @@ import org.hibernate.search.annotations.IndexedEmbedded;
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = "name"))
 public class Member implements Serializable {
 	@Id
-	@GeneratedValue(generator = "uuid")
-	@GenericGenerator(name = "uuid", strategy = "uuid2")
-	private String id;
+	@GeneratedValue
+//	@GeneratedValue(generator = "uuid")
+//	@GenericGenerator(name = "uuid", strategy = "uuid2")
+	private long id;
 
 	@NotNull
 	@Size(min = 1, max = 50)
@@ -42,19 +42,15 @@ public class Member implements Serializable {
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@Valid
 	@IndexedEmbedded
-	@XmlElement(name="contacts")
+	@XmlElement(name = "contacts")
 	private List<ContactDetails> contactDetails;
 
 	public Member() {
 		contactDetails = new ArrayList<ContactDetails>();
 	}
 
-	public String getId() {
+	public long getId() {
 		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
 	}
 
 	public String getName() {
