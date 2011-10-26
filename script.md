@@ -1,19 +1,23 @@
-
 # JPA
 
 * Show structure and build
 * Run Arquillian test
-* Deploy using the JBoss command line tools:
-       `$ mvn clean package
-       $ jboss-admin.sh
-       > connect
-       > deploy target/ogm-kitchensink.war`
+* Deploy using the JBoss command line tools: 
+ 
+        $ mvn clean package
+        $ jboss-admin.sh
+        > connect
+        > deploy target/ogm-kitchensink.war
+
 * Demo site - [ogm-kitchensink](http://localhost:8080/ogm-kitchensink)
 * Create some test members:
-  `ruby member-generator.rb -a http://localhost:8080/ogm-kitchensink -c 20`
+
+        $ruby member-generator.rb -a http://localhost:8080/ogm-kitchensink -c 20`
+        
 * Undeploy:
-  `> undeploy target/ogm-kitchensink.war
-   > quit`
+
+        > undeploy target/ogm-kitchensink.war
+        > quit`
 
 # OGM
 * Switch to OGM
@@ -22,8 +26,9 @@
        * Switch to UUID as entity ids
        * Switch to Seach for querying
 * Deploy w/ maven plugin:
-  `$ mvn clean package
-   $ mvn jboss-as:deploy`
+
+        $ mvn clean package
+        $ mvn jboss-as:deploy
 
 # OpenShift
 
@@ -34,4 +39,4 @@
 
 # Links
 
-* []([AS 7 Command Line Interface](http://www.hibernate.org/subprojects/ogm.html))
+* ([AS 7 Command Line Interface](http://www.hibernate.org/subprojects/ogm.html)
