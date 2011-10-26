@@ -1,5 +1,32 @@
 require 'httparty'
 require 'nokogiri'
+require 'choice'
+
+Choice.options do
+  header 'Application options:'
+
+  separator 'Required:'
+
+  option :app_url, :required => true do
+    short '-a'
+    long '--app_url=URL'
+    desc 'The URL of the application'
+  end
+
+  option :member_count, :required => true do
+    short '-c'
+    long '--member_count=COUNT'
+    desc 'How many members to create'
+  end
+
+  separator 'Common:'
+
+  option :help do
+    short '-h'
+    long '--help'
+    desc 'Show this message.'
+  end
+end
 
 
 class NameGeneratorUrl
@@ -10,11 +37,12 @@ end
 
 class RegisterUrl
   include HTTParty
-   base_uri 'http://kitchensink-ogm.rhcloud.com'
-  #base_uri 'http://localhost:8080/kitchensink-ogm'
+  base_uri Choice.choices.app_url
+  #base_uri 'http://kitchensink-ogm.rhcloud.com'
+  #base_uri 'http://localhost:8080/ogm-kitchensink'
 end
 
-1.upto(10) {
+1.upto(Choice.choices.member_count.to_i()) {
 
   params = {"number" => "2",
             "gender" => "m",
