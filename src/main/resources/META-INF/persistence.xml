@@ -8,9 +8,11 @@
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
         <!--<provider>org.hibernate.ogm.jpa.HibernateOgmPersistence</provider>-->
 
-        <!-- If you are running in a production environment, add a managed
-                         data source, the example data source is just for proofs of concept! -->
-        <jta-data-source>java:jboss/datasources/MySqlDS</jta-data-source>
+        <!-- Default H2 example data source of AS 7-->
+        <jta-data-source>java:jboss/datasources/ExampleDS</jta-data-source>
+
+        <!-- Use for a configured MySQL data source -->
+        <!--<jta-data-source>java:jboss/datasources/MySqlDS</jta-data-source>-->
         <properties>
             <!-- Properties for Hibernate -->
             <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
