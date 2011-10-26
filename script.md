@@ -24,7 +24,7 @@
        * Change persistence provider in _persistence.xml_
        * Enable Hibernate 3 module
        * Switch to UUID as entity ids
-       * Switch to Seach for querying
+       * Switch to Search for querying
 * Deploy w/ maven plugin:
 
         $ mvn clean package
@@ -34,6 +34,13 @@
 
 * Explain OpenShift
 * Explain rvm
+
+        $ rvm gemset create ogm
+        $ rvm gemset use ogm
+        $ gem install rhc
+        $ rhc-create-domain -l <email-id-you-registered-with> -n ogm
+        $ rhc-create-app -a ogm-kitchensink -l <email-id-you-used-to-register> -t jbossas-7.0 -r .
+
 * Add profile
 * Push to Openshift
 
