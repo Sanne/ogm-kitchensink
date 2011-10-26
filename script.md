@@ -2,12 +2,15 @@
 # JPA
 
 * Show structure and build
+* Run Arquillian test
 * Deploy using the JBoss command line tools:
        `$ mvn clean package
        $ jboss-admin.sh
        > connect
        > deploy target/ogm-kitchensink.war`
 * Demo site - [ogm-kitchensink](http://localhost:8080/ogm-kitchensink)
+* Create some test members:
+  `ruby member-generator.rb -a http://localhost:8080/ogm-kitchensink -c 20`
 * Undeploy:
   `> undeploy target/ogm-kitchensink.war
    > quit`
@@ -15,6 +18,7 @@
 
 # OGM
 * Switch to OGM
+** Change persistence provider in _persistence.xml_
 * Deploy:
   `$ mvn clean package
    $ mvn jboss-as:deploy`
