@@ -9,12 +9,11 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 
+import org.jboss.as.quickstarts.kitchensink.model.ContactDetails;
+import org.jboss.as.quickstarts.kitchensink.model.Member;
 import org.jboss.logging.Logger;
 import org.jboss.seam.solder.logging.Category;
 
-import org.jboss.as.quickstarts.kitchensink.model.Member;
-
-// The @Stateful annotation eliminates the need for manual transaction demarcation
 @Stateful
 // The @Model stereotype is a convenience mechanism to make this a request-scoped bean that has an
 // EL name
@@ -23,34 +22,43 @@ import org.jboss.as.quickstarts.kitchensink.model.Member;
 @Model
 public class MemberRegistration {
 
-   @Inject
-   @Category("jboss-as-kitchensink")
-   private Logger log;
+	@Inject
+	@Category("jboss-as-kitchensink")
+	private Logger log;
 
-   @Inject
-   private EntityManager em;
+	@Inject
+	private EntityManager em;
 
-   @Inject
-   private Event<Member> memberEventSrc;
+	@Inject
+	private Event<Member> memberEventSrc;
 
-   private Member newMember;
+	private Member newMember;
 
-   @Produces
-   @Named
-   public Member getNewMember() {
-      return newMember;
-   }
+	private ContactDetails newContactDetails;
 
-   public void register() throws Exception {
-      log.info("Registering " + newMember.getName());
-      em.persist(newMember);
-	  em.flush();
-      memberEventSrc.fire(newMember);
-      initNewMember();
-   }
+	@Produces
+	@Named
+	public ContactDetails getNewContactDetails() {
+		return newContactDetails;
+	}
 
-   @PostConstruct
-   public void initNewMember() {
-      newMember = new Member();
-   }
+	@Produces
+	@Named
+	public Member getNewMember() {
+		return newMember;
+	}
+
+	public void register() throws Exception {
+		log.info( "Registering " + newMember.getName() );
+		newMember.addContactDetails( newContactDetails );
+		em.persist( newMember );
+		memberEventSrc.fire( newMember );
+		initNewMember();
+	}
+
+	@PostConstruct
+	public void initNewMember() {
+		newMember = new Member();
+		newContactDetails = new ContactDetails();
+	}
 }

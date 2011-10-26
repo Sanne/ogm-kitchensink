@@ -1,57 +1,53 @@
 package org.jboss.as.quickstarts.kitchensink.model;
 
 import java.io.Serializable;
-import javax.persistence.Column;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-import javax.validation.constraints.Digits;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.search.annotations.IndexedEmbedded;
 
 @Entity
 @Indexed
 @XmlRootElement
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = "email"))
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = "name"))
 public class Member implements Serializable {
-	/**
-	 * Default value included to remove warning. Remove or modify at will. *
-	 */
-	private static final long serialVersionUID = 1L;
-
 	@Id
 	@GeneratedValue(generator = "uuid")
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
 	private String id;
 
 	@NotNull
-	@Size(min = 1, max = 25)
+	@Size(min = 1, max = 50)
 	@Pattern(regexp = "[A-Za-z ]*", message = "must contain only letters and spaces")
 	@Field
 	private String name;
 
-	@NotNull
-	@NotEmpty
-	@Email
-	@Field
-	private String email;
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@Valid
+	@IndexedEmbedded
+	@XmlElement(name="contacts")
+	private List<ContactDetails> contactDetails;
 
-	@NotNull
-	@Size(min = 10, max = 12)
-	@Digits(fraction = 0, integer = 12)
-	@Column(name = "phone_number")
-	@Field
-	private String phoneNumber;
+	public Member() {
+		contactDetails = new ArrayList<ContactDetails>();
+	}
 
 	public String getId() {
 		return id;
@@ -69,19 +65,45 @@ public class Member implements Serializable {
 		this.name = name;
 	}
 
-	public String getEmail() {
-		return email;
+	public List<ContactDetails> getContactDetails() {
+		return contactDetails;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void addContactDetails(ContactDetails newContactDetails) {
+		contactDetails.add( newContactDetails );
 	}
 
-	public String getPhoneNumber() {
-		return phoneNumber;
+	@Override
+	public boolean equals(Object o) {
+		if ( this == o ) {
+			return true;
+		}
+		if ( o == null || getClass() != o.getClass() ) {
+			return false;
+		}
+
+		Member member = (Member) o;
+
+		if ( name != null ? !name.equals( member.name ) : member.name != null ) {
+			return false;
+		}
+
+		return true;
 	}
 
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
+	@Override
+	public int hashCode() {
+		return name != null ? name.hashCode() : 0;
+	}
+
+	@Override
+	public String toString() {
+		final StringBuilder sb = new StringBuilder();
+		sb.append( "Member" );
+		sb.append( "{id='" ).append( id ).append( '\'' );
+		sb.append( ", name='" ).append( name ).append( '\'' );
+		sb.append( ", contactDetails=" ).append( contactDetails );
+		sb.append( '}' );
+		return sb.toString();
 	}
 }

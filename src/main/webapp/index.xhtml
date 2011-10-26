@@ -24,7 +24,7 @@
                         <h:outputLabel for="email" value="Email:"/>
                     </th>
                     <td>
-                        <h:inputText id="email" value="#{newMember.email}"/>
+                        <h:inputText id="email" value="#{newContactDetails.email}"/>
                         <h:message for="email" errorClass="invalid"/>
                     </td>
                 </tr>
@@ -33,7 +33,7 @@
                         <h:outputLabel for="phoneNumber" value="Phone #:"/>
                     </th>
                     <td>
-                        <h:inputText id="phoneNumber" value="#{newMember.phoneNumber}"/>
+                        <h:inputText id="phoneNumber" value="#{newContactDetails.phoneNumber}"/>
                         <h:message for="phoneNumber" errorClass="invalid"/>
                     </td>
                 </tr>
@@ -60,11 +60,11 @@
             </h:column>
             <h:column>
                 <f:facet name="header">Email</f:facet>
-                #{_member.email}
+                #{_member.contactDetails[0].email}
             </h:column>
             <h:column>
                 <f:facet name="header">Phone</f:facet>
-                #{_member.phoneNumber}
+                #{_member.contactDetails[0].phoneNumber}
             </h:column>
             <f:facet name="footer">
                 REST URL for all members: <a href="#{request.contextPath}/rest/members">/rest/members</a>
