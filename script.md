@@ -28,7 +28,7 @@
 * Demo site - [ogm-kitchensink](http://localhost:8080/ogm-kitchensink)
 * Create some test members:
 
-        $ruby member-generator.rb -a http://localhost:8080/ogm-kitchensink -c 20
+        $ ruby member-generator.rb -a http://localhost:8080/ogm-kitchensink -c 20
         
 * Undeploy:
 
@@ -51,7 +51,7 @@
 * Demo site - [ogm-kitchensink](http://localhost:8080/ogm-kitchensink)
 * Create some test members:
 
-        $ruby member-generator.rb -a http://localhost:8080/ogm-kitchensink -c 20
+        $ ruby member-generator.rb -a http://localhost:8080/ogm-kitchensink -c 20
 
 # OpenShift
 
@@ -86,7 +86,7 @@
 * Demo site - [ogm-kitchensink](http://kitchensink-ogm.rhcloud.com)
 * Create some test members:
 
-        $ruby member-generator.rb -a http://kitchensink-ogm.rhcloud.com -c 20
+        $ ruby member-generator.rb -a http://kitchensink-ogm.rhcloud.com -c 20
 
 * Cleanup
 
