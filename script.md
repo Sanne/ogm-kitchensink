@@ -38,11 +38,15 @@
         $ rvm gemset create ogm
         $ rvm gemset use ogm
         $ gem install rhc
-        $ rhc-create-domain -l <email-id-you-registered-with> -n ogm
-        $ rhc-create-app -a ogm-kitchensink -l <email-id-you-used-to-register> -t jbossas-7.0 -r .
+        $ rhc-create-domain -n ogm
+        $ rhc-create-app -a kitchensink -t jbossas-7.0 --nogit
 
 * Add profile
 * Push to Openshift
+* Cleanup
+
+        $ rhc-ctl-app -a kitchensink -c destroy
+        $ rhc-user-info
 
 # Links
 
