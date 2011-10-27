@@ -47,6 +47,7 @@
 
         $ rhc-ctl-app -a kitchensink -c destroy
         $ rhc-user-info
+        $ rvm gemset delete ogm
 
 # Links
 
