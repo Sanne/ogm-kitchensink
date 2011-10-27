@@ -155,8 +155,6 @@
                  given to the generated war, and hence the context root) -->
         <finalName>${project.artifactId}</finalName>
         <plugins>
-            <!-- Compiler plugin enforces Java 1.6 compatibility and activates
-                        annotation processors -->
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>2.3.1</version>
@@ -177,10 +175,8 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.9</version>
             </plugin>
-            <!-- The JBoss AS plugin deploys your war to a local JBoss
-                              AS container -->
-            <!-- To use, set the JBOSS_HOME environment variable and run:
-                                                  mvn package jboss-as:deploy -->
+            <!-- The JBoss AS plugin deploys your war to a local JBoss AS container -->
+            <!-- To use, set the JBOSS_HOME environment variable and run: mvn package jboss-as:deploy -->
             <plugin>
                 <groupId>org.jboss.as.plugins</groupId>
                 <artifactId>jboss-as-maven-plugin</artifactId>
@@ -192,10 +188,8 @@
     <profiles>
 
         <profile>
-            <!-- An optional Arquillian testing profile that executes tests
-                        in your JBoss AS instance -->
-            <!-- This profile will start a new JBoss AS instance, and execute the
-                          test, shutting it down when done -->
+            <!-- An optional Arquillian testing profile that executes tests in your JBoss AS instance -->
+            <!-- This profile will start a new JBoss AS instance, and execute the test, shutting it down when done -->
             <!-- Run with: mvn clean test -Parq-jbossas-managed -->
             <id>arq-jbossas-managed</id>
             <activation>
@@ -215,8 +209,7 @@
         </profile>
 
         <profile>
-            <!-- An optional Arquillian testing profile that executes tests
-                        in a remote JBoss AS instance -->
+            <!-- An optional Arquillian testing profile that executes tests in a remote JBoss AS instance -->
             <!-- Run with: mvn clean test -Parq-jbossas-remote -->
             <id>arq-jbossas-remote</id>
             <activation>
