@@ -3,8 +3,15 @@
 * JDK 6
 * [Maven 3](http://maven.apache.org/)
 * [Git](http://git-scm.com/)
-* [rvm](http://beginrescueend.com/)
 * [JBoss AS 7 "Zap"](http://www.jboss.org/jbossas)
+
+* [rvm](http://beginrescueend.com/)
+* [ruby]()
+    * Required Gems:
+
+                $ gem install httparty
+                $ gem install nokogiri
+                $ gem install choice
 
 # JPA
 
