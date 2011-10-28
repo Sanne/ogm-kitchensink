@@ -70,5 +70,19 @@
                 REST URL for all members: <a href="#{request.contextPath}/rest/members">/rest/members</a>
             </f:facet>
         </h:dataTable>
+        <h2>Infinispan Cache entries</h2>
+        <h:panelGroup rendered="#{empty cacheEntries}">
+            <em>Empty cache</em>
+        </h:panelGroup>
+        <h:dataTable var="_entry" value="#{cacheEntries}">
+            <h:column>
+                <f:facet name="header">Key</f:facet>
+                #{_entry.key}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Value</f:facet>
+                #{_entry.value}
+            </h:column>
+        </h:dataTable>
     </ui:define>
 </ui:composition>
