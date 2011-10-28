@@ -12,15 +12,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
-import org.apache.lucene.search.Query;
 import org.jboss.as.quickstarts.kitchensink.model.Member;
-
-import org.hibernate.search.jpa.FullTextEntityManager;
-import org.hibernate.search.jpa.FullTextQuery;
-import org.hibernate.search.jpa.Search;
-import org.hibernate.search.query.DatabaseRetrievalMethod;
-import org.hibernate.search.query.ObjectLookupMethod;
-import org.hibernate.search.query.dsl.QueryBuilder;
 
 /**
  * JAX-RS Example
@@ -47,18 +39,18 @@ public class MemberResourceRESTService {
 		return em.createQuery( criteria ).getResultList();
 	}
 
-	@SuppressWarnings("unchecked")
-	private List<Member> createMatchAllFulltextQuery() {
-		FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager( em );
-		QueryBuilder queryBuilder = fullTextEntityManager.getSearchFactory()
-				.buildQueryBuilder()
-				.forEntity( Member.class )
-				.get();
-		Query query = queryBuilder.all().createQuery();
-		FullTextQuery fulltextQuery = fullTextEntityManager.createFullTextQuery( query );
-		fulltextQuery.initializeObjectsWith( ObjectLookupMethod.SKIP, DatabaseRetrievalMethod.FIND_BY_ID );
-		return fulltextQuery.getResultList();
-	}
+//	@SuppressWarnings("unchecked")
+//	private List<Member> createMatchAllFulltextQuery() {
+//		FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager( em );
+//		QueryBuilder queryBuilder = fullTextEntityManager.getSearchFactory()
+//				.buildQueryBuilder()
+//				.forEntity( Member.class )
+//				.get();
+//		Query query = queryBuilder.all().createQuery();
+//		FullTextQuery fulltextQuery = fullTextEntityManager.createFullTextQuery( query );
+//		fulltextQuery.initializeObjectsWith( ObjectLookupMethod.SKIP, DatabaseRetrievalMethod.FIND_BY_ID );
+//		return fulltextQuery.getResultList();
+//	}
 
 	@GET
 	@Path("/{id:[0-9]+}")

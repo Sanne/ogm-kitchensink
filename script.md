@@ -4,10 +4,9 @@
 * [Maven 3](http://maven.apache.org/)
 * [Git](http://git-scm.com/)
 * [JBoss AS 7 "Zap"](http://www.jboss.org/jbossas)
-
-* [rvm](http://beginrescueend.com/)
+* [rvm](http://beginrescueend.com/) (optional)
 * [ruby](http://www.ruby-lang.org/en/)
-    * Required Gems:
+    * Required Gems (for member generator):
 
                 $ gem install httparty
                 $ gem install nokogiri
@@ -16,11 +15,10 @@
 # JPA
 
 * Show structure and build
-    * Domain classes Member and ContactDetails
-    * JPA annotations
     * _persistence.xml_
-    * _MemberRegistration_
-    * no _web.xml_
+    * Domain classes _Member_ and _ContactDetails_
+    * _MemberRegistration_ and _MemberListProducer_
+    * look no _web.xml_ :-)
 * Run Arquillian test (eg remotely, server must be running)
 
         $ mvn test -DremoteTests=true
@@ -44,6 +42,7 @@
 
 # OGM
 * Switch to OGM (replacement code should be already in the source commented out)
+       * Add dependencies to _pom.xml_
        * Change persistence provider in _persistence.xml_
        * Enable Hibernate 3 module (also _peristence.xml_)
        * Switch to UUID as entity ids
@@ -88,7 +87,7 @@
 
 * Push to Openshift
 
-        $ git push openshift master
+        $ git push -f openshift master
 
 * Demo site - [ogm-kitchensink](http://kitchensink-ogm.rhcloud.com)
 * Create some test members:
@@ -104,3 +103,4 @@
 # Links
 
 * [AS 7 Command Line Interface](http://www.hibernate.org/subprojects/ogm.html)
+* [Openshift documentation](https://www.redhat.com/openshift/documents)

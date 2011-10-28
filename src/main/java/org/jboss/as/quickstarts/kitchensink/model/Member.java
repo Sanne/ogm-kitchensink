@@ -18,14 +18,10 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.hibernate.search.annotations.Field;
-import org.hibernate.search.annotations.Indexed;
-import org.hibernate.search.annotations.IndexedEmbedded;
-
 @Entity
-@Indexed
 @XmlRootElement
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = "name"))
+// @Indexed
 public class Member implements Serializable {
 	@Id
 	@GeneratedValue
@@ -36,13 +32,13 @@ public class Member implements Serializable {
 	@NotNull
 	@Size(min = 1, max = 50)
 	@Pattern(regexp = "[A-Za-z ]*", message = "must contain only letters and spaces")
-	@Field
+//	@Field
 	private String name;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@Valid
-	@IndexedEmbedded
 	@XmlElement(name = "contacts")
+	@Valid
+//	@IndexedEmbedded
 	private List<ContactDetails> contactDetails;
 
 	public Member() {

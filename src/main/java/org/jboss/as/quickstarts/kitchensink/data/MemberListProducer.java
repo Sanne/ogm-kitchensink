@@ -13,15 +13,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-import org.apache.lucene.search.Query;
 import org.jboss.as.quickstarts.kitchensink.model.Member;
-
-import org.hibernate.search.jpa.FullTextEntityManager;
-import org.hibernate.search.jpa.FullTextQuery;
-import org.hibernate.search.jpa.Search;
-import org.hibernate.search.query.DatabaseRetrievalMethod;
-import org.hibernate.search.query.ObjectLookupMethod;
-import org.hibernate.search.query.dsl.QueryBuilder;
 
 @RequestScoped
 public class MemberListProducer {
