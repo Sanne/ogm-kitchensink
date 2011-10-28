@@ -1,5 +1,6 @@
 package org.jboss.as.quickstarts.kitchensink.test;
 
+import java.io.File;
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
 import javax.inject.Inject;
@@ -13,7 +14,6 @@ import org.jboss.as.quickstarts.kitchensink.util.Resources;
 import org.jboss.logging.Logger;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,10 +25,15 @@ public class MemberRegistrationTest {
 	@Deployment
 	public static Archive<?> createTestArchive() {
 		return ShrinkWrap.create( WebArchive.class, "test.war" )
-				.addClasses( Member.class, ContactDetails.class, MemberRegistration.class, Resources.class )
+				.addClasses(
+						Member.class,
+						ContactDetails.class,
+						MemberRegistration.class,
+						Resources.class
+				)
 				.addAsResource( "META-INF/persistence.xml", "META-INF/persistence.xml" )
 				.addAsResource( "infinispan.xml", "infinispan.xml" )
-				.addAsWebInfResource( EmptyAsset.INSTANCE, "beans.xml" );
+				.addAsWebInfResource( new File( "src/main/webapp/WEB-INF/beans.xml" ), "beans.xml" );
 	}
 
 	@Inject
