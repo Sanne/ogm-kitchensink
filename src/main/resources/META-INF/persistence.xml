@@ -5,8 +5,8 @@
         http://java.sun.com/xml/ns/persistence
         http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
     <persistence-unit name="primary">
-        <!--<provider>org.hibernate.ejb.HibernatePersistence</provider>-->
-        <provider>org.hibernate.ogm.jpa.HibernateOgmPersistence</provider>
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        <!--<provider>org.hibernate.ogm.jpa.HibernateOgmPersistence</provider>-->
 
         <!-- Default H2 example data source of AS 7-->
         <jta-data-source>java:jboss/datasources/ExampleDS</jta-data-source>
@@ -15,13 +15,13 @@
         <!--<jta-data-source>java:jboss/datasources/MySqlDS</jta-data-source>-->
         <properties>
             <!-- Properties for Hibernate -->
-            <!--<property name="hibernate.hbm2ddl.auto" value="create-drop"/>-->
-            <!--<property name="hibernate.show_sql" value="false"/>-->
+            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+            <property name="hibernate.show_sql" value="false"/>
 
-            <property name="jboss.as.jpa.providerModule" value="org.hibernate:ogm"/>
-            <property name="jboss.as.jpa.adapterModule" value="org.jboss.as.jpa.hibernate:3"/>
-            <property name="hibernate.ogm.infinispan.configuration_resourcename" value="infinispan.xml"/>
-            <property name="hibernate.search.default.directory_provider" value="ram"/>
+            <!--<property name="jboss.as.jpa.providerModule" value="org.hibernate:ogm"/>-->
+            <!--<property name="jboss.as.jpa.adapterModule" value="org.jboss.as.jpa.hibernate:3"/>-->
+            <!--<property name="hibernate.ogm.infinispan.configuration_resourcename" value="infinispan.xml"/>-->
+            <!--<property name="hibernate.search.default.directory_provider" value="ram"/>-->
         </properties>
     </persistence-unit>
 </persistence>

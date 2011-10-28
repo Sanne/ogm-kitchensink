@@ -49,6 +49,7 @@
        * Switch to Search for querying
            * Need to add Search annotations
            * Switch from Criteria to Search in _MemberListProducer_ and _MemberResourceRESTService_
+       * Enable displaying of Infinispan cache in _index.xhtml_ (optional)
 * Deploy w/ maven plugin:
 
         $ mvn clean package

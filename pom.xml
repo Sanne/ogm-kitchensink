@@ -130,12 +130,12 @@
             <scope>provided</scope>
         </dependency>
 
-        <dependency>
-            <groupId>org.hibernate.ogm</groupId>
-            <artifactId>hibernate-ogm-core</artifactId>
-            <version>${hibernateOgmVersion}</version>
-            <scope>provided</scope>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.hibernate.ogm</groupId>-->
+            <!--<artifactId>hibernate-ogm-core</artifactId>-->
+            <!--<version>${hibernateOgmVersion}</version>-->
+            <!--<scope>provided</scope>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-search</artifactId>
