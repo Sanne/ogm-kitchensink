@@ -6,7 +6,7 @@
 * [JBoss AS 7 "Zap"](http://www.jboss.org/jbossas)
 
 * [rvm](http://beginrescueend.com/)
-* [ruby]()
+* [ruby](http://www.ruby-lang.org/en/)
     * Required Gems:
 
                 $ gem install httparty
