@@ -101,7 +101,7 @@ public class MemberListProducer {
 			StringBuilder builder = new StringBuilder();
 			builder.append( "Value{" );
 			for ( Map.Entry<String, ?> valueEntry : valueMap.entrySet() ) {
-				if ( !builder.toString().startsWith( "Value{" ) ) {
+				if ( !builder.toString().endsWith( "Value{" ) ) {
 					builder.append( ",\n" );
 				}
 				builder.append( valueEntry.getKey() );
