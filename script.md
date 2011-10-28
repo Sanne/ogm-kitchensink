@@ -45,7 +45,7 @@
        * Add dependencies to _pom.xml_
        * Change persistence provider in _persistence.xml_
        * Enable Hibernate 3 module (also _peristence.xml_)
-       * Switch to UUID as entity ids
+       * Switch to UUID as entity ids (don't forget to switch the id type to _String_)
        * Switch to Search for querying
            * Need to add Search annotations
            * Switch from Criteria to Search in _MemberListProducer_ and _MemberResourceRESTService_
