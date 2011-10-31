@@ -21,7 +21,6 @@ public class MemberListProducer {
 	private EntityManager em;
 
 	private List<Member> members;
-//	private List<CacheEntry> cacheEntries;
 
 	@Produces
 	@Named
@@ -29,16 +28,9 @@ public class MemberListProducer {
 		return members;
 	}
 
-//	@Produces
-//	@Named
-//	public List<CacheEntry> getCacheEntries() {
-//		return cacheEntries;
-//	}
-
 	public void onMemberListChanged(@Observes(notifyObserver = Reception.IF_EXISTS) final Member member) {
 		retrieveAllMembersWithCriteria();
 //		members.add( member );
-//		checkInfinispanEntityCache();
 	}
 
 	@PostConstruct
@@ -54,6 +46,16 @@ public class MemberListProducer {
 //	public void retrieveAllMembersUsingHibernateSearch() {
 //		FullTextQuery fullTextQuery = QueryHelper.createFulltextQuery( em );
 //		members = new ArrayList<Member>( fullTextQuery.getResultList() );
+//	}
+//
+
+
+//	private List<CacheEntry> cacheEntries;
+//
+//	@Produces
+//	@Named
+//	public List<CacheEntry> getCacheEntries() {
+//		return cacheEntries;
 //	}
 //
 //	public void checkInfinispanEntityCache() {
