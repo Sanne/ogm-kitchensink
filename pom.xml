@@ -130,12 +130,12 @@
             <scope>provided</scope>
         </dependency>
 
-        <!--<dependency>-->
-            <!--<groupId>org.hibernate.ogm</groupId>-->
-            <!--<artifactId>hibernate-ogm-core</artifactId>-->
-            <!--<version>${hibernateOgmVersion}</version>-->
-            <!--<scope>provided</scope>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>org.hibernate.ogm</groupId>
+            <artifactId>hibernate-ogm-core</artifactId>
+            <version>${hibernateOgmVersion}</version>
+            <scope>provided</scope>
+        </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-search</artifactId>
@@ -182,6 +182,25 @@
                 <artifactId>jboss-as-maven-plugin</artifactId>
                 <version>7.0.0.Final</version>
             </plugin>
+            <plugin>
+                <groupId>org.codehaus.gmaven</groupId>
+                <artifactId>gmaven-plugin</artifactId>
+                <version>1.3</version>
+                <configuration>
+                    <source>
+                        log.info('Copying H3 and OGM modules')
+                        def env = System.getenv()
+                        def toDir = new File(env.JBOSS_HOME, 'modules')
+                        def fromDir = new File(project.basedir, '.openshift/config/modules')
+                        ant.copy(todir: toDir) {
+                            fileset(dir: fromDir) {
+                                exclude(name: 'README')
+                            }
+                        }
+                    </source>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
 

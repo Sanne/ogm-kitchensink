@@ -16,33 +16,37 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
+
 @Entity
 @XmlRootElement
-//@Indexed
+@Indexed
 public class Member implements Serializable {
 	@Id
-	@GeneratedValue
-//	@GeneratedValue(generator = "uuid")
-//	@GenericGenerator(name = "uuid", strategy = "uuid2")
-	private long id;
+	@GeneratedValue(generator = "uuid")
+	@GenericGenerator(name = "uuid", strategy = "uuid2")
+	private String id;
 
 	@NotNull
 	@Size(min = 1, max = 50)
 	@Pattern(regexp = "[A-Za-z ]*", message = "must contain only letters and spaces")
-//	@Field
+	@Field
 	private String name;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@XmlElement(name = "contacts")
 	@Valid
-//	@IndexedEmbedded
+	@IndexedEmbedded
 	private List<ContactDetails> contactDetails;
 
 	public Member() {
 		contactDetails = new ArrayList<ContactDetails>();
 	}
 
-	public long getId() {
+	public String getId() {
 		return id;
 	}
 

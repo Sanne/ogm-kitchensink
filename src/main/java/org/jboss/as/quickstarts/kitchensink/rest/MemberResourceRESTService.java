@@ -4,15 +4,13 @@ import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 import org.jboss.as.quickstarts.kitchensink.model.Member;
+import org.jboss.as.quickstarts.kitchensink.util.QueryHelper;
 
 /**
  * JAX-RS Example
@@ -29,17 +27,13 @@ public class MemberResourceRESTService {
 	@Produces("text/xml")
 	@SuppressWarnings("unchecked")
 	public List<Member> listAllMembers() {
-		CriteriaBuilder cb = em.getCriteriaBuilder();
-		CriteriaQuery<Member> criteria = cb.createQuery( Member.class );
-		Root<Member> member = criteria.from( Member.class );
-		criteria.select( member ).orderBy( cb.asc( member.get( "name" ) ) );
-		return em.createQuery( criteria ).getResultList();
+		return QueryHelper.createFulltextQuery( em ).getResultList();
 	}
 
 	@GET
-	@Path("/{id:[0-9]+}")
+	@Path("/{id:[a-z-0-9]+}")
 	@Produces("text/xml")
-	public Member lookupMemberById(@PathParam("id") long id) {
+	public Member lookupMemberById(@PathParam("id") String id) {
 		return em.find( Member.class, id );
 	}
 
@@ -47,13 +41,17 @@ public class MemberResourceRESTService {
 //	@Produces("text/xml")
 //	@SuppressWarnings("unchecked")
 //	public List<Member> listAllMembers() {
-//		return QueryHelper.createFulltextQuery( em ).getResultList();
+//		CriteriaBuilder cb = em.getCriteriaBuilder();
+//		CriteriaQuery<Member> criteria = cb.createQuery( Member.class );
+//		Root<Member> member = criteria.from( Member.class );
+//		criteria.select( member ).orderBy( cb.asc( member.get( "name" ) ) );
+//		return em.createQuery( criteria ).getResultList();
 //	}
 //
 //	@GET
-//	@Path("/{id:[a-z-0-9]+}")
+//	@Path("/{id:[0-9]+}")
 //	@Produces("text/xml")
-//	public Member lookupMemberById(@PathParam("id") String id) {
+//	public Member lookupMemberById(@PathParam("id") long id) {
 //		return em.find( Member.class, id );
 //	}
 }

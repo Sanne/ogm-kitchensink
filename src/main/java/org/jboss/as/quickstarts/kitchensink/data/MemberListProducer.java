@@ -1,5 +1,6 @@
 package org.jboss.as.quickstarts.kitchensink.data;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
@@ -14,6 +15,9 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 import org.jboss.as.quickstarts.kitchensink.model.Member;
+import org.jboss.as.quickstarts.kitchensink.util.QueryHelper;
+
+import org.hibernate.search.jpa.FullTextQuery;
 
 @RequestScoped
 public class MemberListProducer {
@@ -29,11 +33,20 @@ public class MemberListProducer {
 	}
 
 	public void onMemberListChanged(@Observes(notifyObserver = Reception.IF_EXISTS) final Member member) {
-		retrieveAllMembersWithCriteria();
-//		members.add( member );
+		retrieveAllMembersUsingHibernateSearch();
+		// in the case of OGM we have to explicitly add the member. When using Criteria this is not required,
+		// because the persistence context gets flushed prior to querying
+		members.add( member );
 	}
 
 	@PostConstruct
+	public void retrieveAllMembersUsingHibernateSearch() {
+		FullTextQuery fullTextQuery = QueryHelper.createFulltextQuery( em );
+		members = new ArrayList<Member>( fullTextQuery.getResultList() );
+	}
+
+//  There can only by one @PostConstruct
+//	@PostConstruct
 	public void retrieveAllMembersWithCriteria() {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Member> criteria = cb.createQuery( Member.class );
@@ -42,13 +55,8 @@ public class MemberListProducer {
 		members = em.createQuery( criteria ).getResultList();
 	}
 
-//	@PostConstruct
-//	public void retrieveAllMembersUsingHibernateSearch() {
-//		FullTextQuery fullTextQuery = QueryHelper.createFulltextQuery( em );
-//		members = new ArrayList<Member>( fullTextQuery.getResultList() );
-//	}
-//
-
+// The following code accesses the Infinispan cache directly. To use it make sure that Infinispan classes can
+// be loaded (see jboss-deployment-structure.xml). You can enable displaying on the GUI in index.xhtml
 
 //	private List<CacheEntry> cacheEntries;
 //
