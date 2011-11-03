@@ -184,11 +184,9 @@
 
     <interfaces>
         <interface name="management">
-            <!--<loopback-address value="127.1.35.129"/>-->
             <loopback-address value="${OPENSHIFT_INTERNAL_IP}"/>
         </interface>
         <interface name="public">
-            <!--<loopback-address value="127.1.35.129"/>-->
             <loopback-address value="${OPENSHIFT_INTERNAL_IP}"/>
         </interface>
     </interfaces>
