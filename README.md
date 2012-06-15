@@ -63,3 +63,10 @@ ogm-kitchensink is a [OGM](http://www.hibernate.org/subprojects/ogm.html) demo a
         $ git push -f openshift master
 
 * Demo site - http://\<app\>-\<domain\>.rhcloud.com
+
+# Links
+
+* [Hibernate OGM](http://www.hibernate.org/subprojects/ogm.html)
+* [AS 7 Command Line Interface](https://community.jboss.org/wiki/CommandLineInterface)
+* [Openshift documentation](https://www.redhat.com/openshift/documents)
+
