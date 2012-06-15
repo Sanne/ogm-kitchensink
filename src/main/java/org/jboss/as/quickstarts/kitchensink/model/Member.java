@@ -1,3 +1,19 @@
+/*
+ * JBoss, Home of Professional Open Source
+ * Copyright 2012, Red Hat, Inc. and/or its affiliates, and individual
+ * contributors by the @authors tag. See the copyright.txt in the 
+ * distribution for a full listing of individual contributors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,  
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.jboss.as.quickstarts.kitchensink.model;
 
 import java.io.Serializable;
@@ -17,86 +33,65 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.search.annotations.Field;
-import org.hibernate.search.annotations.Indexed;
-import org.hibernate.search.annotations.IndexedEmbedded;
+import org.hibernate.search.annotations.*;
 
 @Entity
 @XmlRootElement
 @Indexed
 public class Member implements Serializable {
-	@Id
-	@GeneratedValue(generator = "uuid")
-	@GenericGenerator(name = "uuid", strategy = "uuid2")
-	private String id;
 
-	@NotNull
-	@Size(min = 1, max = 50)
-	@Pattern(regexp = "[A-Za-z ]*", message = "must contain only letters and spaces")
-	@Field
-	private String name;
+    @Id
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    private String id;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@XmlElement(name = "contacts")
-	@Valid
-	@IndexedEmbedded
-	private List<ContactDetails> contactDetails;
+    @NotNull
+    @Size(min = 1, max = 50)
+    @Pattern(regexp = "[A-Za-z ]*", message = "must contain only letters and spaces")
+    @Fields({
+        @Field(analyze = Analyze.NO, norms = Norms.NO, store = Store.YES, name = "sortableStoredName"),
+        @Field(analyze = Analyze.YES, norms = Norms.YES)
+    })
+    private String name;
 
-	public Member() {
-		contactDetails = new ArrayList<ContactDetails>();
-	}
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @XmlElement(name = "contacts")
+    @Valid
+    @IndexedEmbedded
+    private List<ContactDetails> contactDetails;
 
-	public String getId() {
-		return id;
-	}
+    public Member() {
+        contactDetails = new ArrayList<ContactDetails>();
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public List<ContactDetails> getContactDetails() {
-		return contactDetails;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void addContactDetails(ContactDetails newContactDetails) {
-		contactDetails.add( newContactDetails );
-	}
+    public List<ContactDetails> getContactDetails() {
+        return contactDetails;
+    }
 
-	@Override
-	public boolean equals(Object o) {
-		if ( this == o ) {
-			return true;
-		}
-		if ( o == null || getClass() != o.getClass() ) {
-			return false;
-		}
+    public void addContactDetails(ContactDetails newContactDetails) {
+        contactDetails.add(newContactDetails);
+    }
 
-		Member member = (Member) o;
-
-		if ( name != null ? !name.equals( member.name ) : member.name != null ) {
-			return false;
-		}
-
-		return true;
-	}
-
-	@Override
-	public int hashCode() {
-		return name != null ? name.hashCode() : 0;
-	}
-
-	@Override
-	public String toString() {
-		final StringBuilder sb = new StringBuilder();
-		sb.append( "Member" );
-		sb.append( "{id='" ).append( id ).append( '\'' );
-		sb.append( ", name='" ).append( name ).append( '\'' );
-		sb.append( ", contactDetails=" ).append( contactDetails );
-		sb.append( '}' );
-		return sb.toString();
-	}
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder();
+        sb.append("Member");
+        sb.append("{id='").append(id).append('\'');
+        sb.append(", name='").append(name).append('\'');
+        sb.append(", contactDetails=").append(contactDetails);
+        sb.append('}');
+        return sb.toString();
+    }
 }
