@@ -1,6 +1,39 @@
-target
+#OS
+.DS_Store
+
+#IDEs
+
+# IntelliJ specific files/directories
 .idea
-.project
+*.ipr
+*.iws
 *.iml
+atlassian-ide-plugin.xml
+
+#XMLEditor
+*.*xml~
+
+# Eclipse specific files/directories
+.classpath
+.project
+.factorypath
+.settings
+.externalToolBuilders
+
+# NetBeans specific files/directories
+.nbattrs
+
+#build
+target/
+
+#custom scripts
+*.sh
+
+#test output
+test-output/
+transaction.log
+infinispan.log
+
+#Ruby RVM
 .rvmrc
 
