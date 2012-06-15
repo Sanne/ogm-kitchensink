@@ -33,8 +33,10 @@
                  variable -->
         <jboss.home>${env.JBOSS_HOME}</jboss.home>
 
-        <hibernateOgmVersion>3.0.0.Alpha2</hibernateOgmVersion>
-        <hibernateSearchVersion>3.4.0.Final</hibernateSearchVersion>
+        <hibernateOgmVersion>4.0.0-SNAPSHOT</hibernateOgmVersion>
+        <hibernateSearchVersion>4.2.0-SNAPSHOT</hibernateSearchVersion>
+        <applicationServer7Version>7.1.1.Final</applicationServer7Version>
+        <beanValidationVersion>4.3.0.Final</beanValidationVersion>
     </properties>
 
     <repositories>
@@ -85,7 +87,7 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <version>4.1.0.Final</version>
+            <version>${beanValidationVersion}</version>
             <scope>provided</scope>
             <exclusions>
                 <exclusion>
@@ -99,7 +101,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.8.1</version>
+            <version>4.10</version>
             <scope>test</scope>
         </dependency>
 
@@ -109,7 +111,7 @@
         <dependency>
             <groupId>org.jboss.arquillian.junit</groupId>
             <artifactId>arquillian-junit-container</artifactId>
-            <version>1.0.0.CR1</version>
+            <version>1.0.1.Final</version>
             <scope>test</scope>
         </dependency>
 
@@ -125,7 +127,7 @@
         <dependency>
             <groupId>org.jboss.spec</groupId>
             <artifactId>jboss-javaee-web-6.0</artifactId>
-            <version>2.0.0.Final</version>
+            <version>3.0.1.Final</version>
             <type>pom</type>
             <scope>provided</scope>
         </dependency>
@@ -145,7 +147,7 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
-            <version>1.6.1</version>
+            <version>1.6.6</version>
         </dependency>
 
     </dependencies>
@@ -180,7 +182,7 @@
             <plugin>
                 <groupId>org.jboss.as.plugins</groupId>
                 <artifactId>jboss-as-maven-plugin</artifactId>
-                <version>7.0.0.Final</version>
+                <version>${applicationServer7Version}</version>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.gmaven</groupId>
@@ -221,7 +223,7 @@
                 <dependency>
                     <groupId>org.jboss.as</groupId>
                     <artifactId>jboss-as-arquillian-container-managed</artifactId>
-                    <version>7.0.0.CR1</version>
+                    <version>${applicationServer7Version}</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
@@ -241,7 +243,7 @@
                 <dependency>
                     <groupId>org.jboss.as</groupId>
                     <artifactId>jboss-as-arquillian-container-remote</artifactId>
-                    <version>7.0.0.CR1</version>
+                    <version>${applicationServer7Version}</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
