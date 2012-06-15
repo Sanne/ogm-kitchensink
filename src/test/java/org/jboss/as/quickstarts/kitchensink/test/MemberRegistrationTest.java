@@ -63,7 +63,8 @@ public class MemberRegistrationTest {
                         MemberResourceRESTService.class,
                         MemberRegistration.class,
                         QueryHelper.class,
-                        Resources.class)
+                        Resources.class,
+                        FacesContextStub.class)
                 .addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml")
                 .addAsResource("infinispan.xml", "infinispan.xml")
                 .addAsWebInfResource(new File("src/main/webapp/WEB-INF/beans.xml"), "beans.xml")
@@ -87,6 +88,7 @@ public class MemberRegistrationTest {
 
     @Test
     public void testRegister() throws Exception {
+        FacesContextStub.setCurrentInstance(new FacesContextStub("test"));
         Member newMember = memberController.getNewMember();
         newMember.setName("Jane Doe");
 
