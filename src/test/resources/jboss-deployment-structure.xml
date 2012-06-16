@@ -4,7 +4,6 @@
         <!-- only needed when trying to access the Infinispan cache directly. -->
         <dependencies>
             <module name="org.infinispan"/>
-            <module name="org.hibernate"/>
         </dependencies>
     </deployment>
 </jboss-deployment-structure>

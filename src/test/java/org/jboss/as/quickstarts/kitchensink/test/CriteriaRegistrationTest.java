@@ -31,7 +31,7 @@ public class CriteriaRegistrationTest extends MemberRegistrationTest {
 
    @Deployment
    public static Archive<?> createTestArchive() {
-      return MemberRegistrationTest.createTestArchive();
+      return MemberRegistrationTest.createTestArchive("persistence-traditional.xml", "beans-empty.xml");
    }
 
 }

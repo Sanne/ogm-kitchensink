@@ -46,7 +46,7 @@ import org.jboss.as.quickstarts.kitchensink.model.Member;
  */
 public class Resources {
 
-    @PersistenceContext
+    @PersistenceContext(unitName="kitchen")
     private EntityManager em;
 
     @Produces

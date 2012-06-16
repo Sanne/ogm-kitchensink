@@ -16,6 +16,9 @@
  */
 package org.jboss.as.quickstarts.kitchensink.test;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 import java.io.File;
 import java.util.List;
 import java.util.logging.Logger;
@@ -24,8 +27,8 @@ import javax.inject.Inject;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.as.quickstarts.kitchensink.controller.MemberController;
-import org.jboss.as.quickstarts.kitchensink.data.MemberListProducer;
 import org.jboss.as.quickstarts.kitchensink.data.CriteriaMemberRepository;
+import org.jboss.as.quickstarts.kitchensink.data.MemberListProducer;
 import org.jboss.as.quickstarts.kitchensink.data.MemberRepository;
 import org.jboss.as.quickstarts.kitchensink.model.ContactDetails;
 import org.jboss.as.quickstarts.kitchensink.model.Member;
@@ -43,22 +46,15 @@ import org.jboss.shrinkwrap.resolver.api.DependencyResolvers;
 import org.jboss.shrinkwrap.resolver.api.maven.MavenDependencyResolver;
 import org.junit.Test;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertEquals;
-
 public abstract class MemberRegistrationTest {
 
-    private static String[] dependencyExclusions = {
-        "org.hibernate:hibernate-entitymanager",
-        "org.hibernate:hibernate-core",
+    public final static String[] dependencyExclusions = {
         "org.hibernate:hibernate-search-analyzers",
-        "org.hibernate.common:hibernate-commons-annotations",
-        "org.jboss.logging:jboss-logging",
+        "org.jboss.logging:*",
         "org.jboss.shrinkwrap:*"
     };
 
-    @Deployment
-    public static Archive<?> createTestArchive() {
+    public static Archive<?> createTestArchive(String persistenceUnitConfigurationSource, String cdiBeansConfigurationSource) {
         MavenDependencyResolver resolver = DependencyResolvers.use(MavenDependencyResolver.class)
                 .goOffline();// take SNAPSHOTS from your local cache: greatly speedups development
         return ShrinkWrap
@@ -77,10 +73,11 @@ public abstract class MemberRegistrationTest {
                         QueryHelper.class,
                         Resources.class,
                         FacesContextStub.class)
-                .addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml")
+                .addAsResource(persistenceUnitConfigurationSource, "META-INF/persistence.xml")
                 .addAsResource("infinispan.xml", "infinispan.xml")
-                .addAsWebInfResource(new File("src/main/webapp/WEB-INF/beans.xml"), "beans.xml")
+                .addAsWebInfResource(cdiBeansConfigurationSource, "beans.xml")
                 .addAsWebInfResource(new StringAsset("<faces-config version=\"2.0\"/>"), "faces-config.xml")
+                .addAsWebInfResource("jboss-deployment-structure.xml", "jboss-deployment-structure.xml")
                 .addAsLibraries(
                         resolver
                             .artifact("org.hibernate:hibernate-search-orm:4.1.1.Final")
