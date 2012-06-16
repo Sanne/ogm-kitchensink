@@ -30,7 +30,7 @@ import org.hibernate.search.jpa.FullTextEntityManager;
 import org.jboss.as.quickstarts.kitchensink.model.Member;
 
 @ApplicationScoped
-public class MemberRepository {
+public class CriteriaMemberRepository {
 
     @Inject
     private FullTextEntityManager em;
