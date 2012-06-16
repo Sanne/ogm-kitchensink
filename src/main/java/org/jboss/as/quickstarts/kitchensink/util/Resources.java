@@ -18,6 +18,7 @@ package org.jboss.as.quickstarts.kitchensink.util;
 
 import java.util.logging.Logger;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
@@ -54,11 +55,13 @@ public class Resources {
     }
 
     @Produces
+    @ApplicationScoped
     public SearchFactory getSearchFactory() {
         return getFullTextEntityManager().getSearchFactory();
     }
 
     @Produces
+    @ApplicationScoped
     public QueryBuilder getMemberQueryBuilder() {
         return getSearchFactory().buildQueryBuilder().forEntity(Member.class).get();
     }
