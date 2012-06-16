@@ -42,23 +42,23 @@ import org.hibernate.search.jpa.Search;
  */
 public class Resources {
 
-   @PersistenceContext
-   private EntityManager em;
+    @PersistenceContext
+    private EntityManager em;
 
-   @Produces
-   public FullTextEntityManager getFullTextEntityManager() {
-       return Search.getFullTextEntityManager(em);
-   }
+    @Produces
+    public FullTextEntityManager getFullTextEntityManager() {
+        return Search.getFullTextEntityManager(em);
+    }
 
-   @Produces
-   public Logger produceLog(InjectionPoint injectionPoint) {
-      return Logger.getLogger(injectionPoint.getMember().getDeclaringClass().getName());
-   }
-   
-   @Produces
-   @RequestScoped
-   public FacesContext produceFacesContext() {
-      return FacesContext.getCurrentInstance();
-   }
-   
+    @Produces
+    public Logger produceLog(InjectionPoint injectionPoint) {
+        return Logger.getLogger(injectionPoint.getMember().getDeclaringClass().getName());
+    }
+
+    @Produces
+    @RequestScoped
+    public FacesContext produceFacesContext() {
+        return FacesContext.getCurrentInstance();
+    }
+
 }

@@ -29,86 +29,36 @@ import javax.persistence.criteria.Root;
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.jboss.as.quickstarts.kitchensink.model.Member;
 
-
 @ApplicationScoped
 public class MemberRepository {
 
-   @Inject
-   private FullTextEntityManager em;
+    @Inject
+    private FullTextEntityManager em;
 
-   public Member findById(Long id) {
-      return em.find(Member.class, id);
-   }
+    public Member findById(Long id) {
+        return em.find(Member.class, id);
+    }
 
-   public Member findByEmail(String email) {
-      CriteriaBuilder cb = em.getCriteriaBuilder();
-      CriteriaQuery<Member> criteria = cb.createQuery(Member.class);
-      Root<Member> member = criteria.from(Member.class);
-      // Swap criteria statements if you would like to try out type-safe criteria queries, a new
-      // feature in JPA 2.0
-      // criteria.select(member).where(cb.equal(member.get(Member_.name), email));
-      criteria.select(member).where(cb.equal(member.get("email"), email));
-      return em.createQuery(criteria).getSingleResult();
-   }
+    public Member findByEmail(String email) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Member> criteria = cb.createQuery(Member.class);
+        Root<Member> member = criteria.from(Member.class);
+        // Swap criteria statements if you would like to try out type-safe criteria queries, a new
+        // feature in JPA 2.0
+        // criteria.select(member).where(cb.equal(member.get(Member_.name), email));
+        criteria.select(member).where(cb.equal(member.get("email"), email));
+        return em.createQuery(criteria).getSingleResult();
+    }
 
-   public List<Member> findAllOrderedByName() {
-      CriteriaBuilder cb = em.getCriteriaBuilder();
-      CriteriaQuery<Member> criteria = cb.createQuery(Member.class);
-      Root<Member> member = criteria.from(Member.class);
-      // Swap criteria statements if you would like to try out type-safe criteria queries, a new
-      // feature in JPA 2.0
-      // criteria.select(member).orderBy(cb.asc(member.get(Member_.name)));
-      criteria.select(member).orderBy(cb.asc(member.get("name")));
-      return em.createQuery(criteria).getResultList();
-   }
+    public List<Member> findAllOrderedByName() {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Member> criteria = cb.createQuery(Member.class);
+        Root<Member> member = criteria.from(Member.class);
+        // Swap criteria statements if you would like to try out type-safe criteria queries, a new
+        // feature in JPA 2.0
+        // criteria.select(member).orderBy(cb.asc(member.get(Member_.name)));
+        criteria.select(member).orderBy(cb.asc(member.get("name")));
+        return em.createQuery(criteria).getResultList();
+    }
 
-
-// public void checkInfinispanEntityCache() {
-// SessionFactory factory = ( (OgmEntityManagerFactory) em.getEntityManagerFactory() ).getSessionFactory();
-// final SessionFactoryObserver observer = ( (SessionFactoryImplementor) factory ).getFactoryObserver();
-// if ( observer == null ) {
-//     throw new RuntimeException( "Wrong OGM configuration: observer not set" );
-// }
-// Cache cache = ( (GridMetadataManager) observer ).getCacheContainer().getCache( "ENTITIES" );
-//
-// cacheEntries = new ArrayList<CacheEntry>();
-// for ( Object o : cache.entrySet() ) {
-//     Map.Entry<?, ?> entry = (Map.Entry<?, ?>) o;
-//     CacheEntry keyValue = new CacheEntry( entry.getKey().toString(), (Map<String, ?>) entry.getValue() );
-//     cacheEntries.add( keyValue );
-// }
-//}
-//
-//public static class CacheEntry {
-// private String key;
-// private String value;
-//
-// CacheEntry(String key, Map<String, ?> valueMap) {
-//     this.key = key;
-//     this.value = createStringValue( valueMap );
-// }
-//
-// public String getKey() {
-//     return key;
-// }
-//
-// public String getValue() {
-//     return value;
-// }
-//
-// private String createStringValue(Map<String, ?> valueMap) {
-//     StringBuilder builder = new StringBuilder();
-//     builder.append( "Value{" );
-//     for ( Map.Entry<String, ?> valueEntry : valueMap.entrySet() ) {
-//         if ( !builder.toString().endsWith( "Value{" ) ) {
-//             builder.append( ",\n" );
-//         }
-//         builder.append( valueEntry.getKey() );
-//         builder.append( "=" );
-//         builder.append( valueEntry.getValue().toString() );
-//     }
-//     builder.append( "}" );
-//     return builder.toString();
-// }
-//}
 }
