@@ -55,6 +55,7 @@
         <hibernateSearchVersion>4.2.0-SNAPSHOT</hibernateSearchVersion>
         <applicationServer7Version>7.1.1.Final</applicationServer7Version>
         <beanValidationVersion>4.3.0.Final</beanValidationVersion>
+        <infinispanVersion>5.1.5.FINAL</infinispanVersion>
     </properties>
 
     <repositories>
@@ -240,6 +241,11 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-search-infinispan</artifactId>
             <version>${hibernateSearchVersion}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.infinispan</groupId>
+            <artifactId>infinispan-lucene-directory</artifactId>
+            <version>${infinispanVersion}</version>
         </dependency>
 
         <dependency>

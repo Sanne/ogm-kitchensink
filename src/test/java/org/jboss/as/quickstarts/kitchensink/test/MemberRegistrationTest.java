@@ -49,9 +49,15 @@ public abstract class MemberRegistrationTest {
 
     public final static String[] dependencyExclusions = {
         "org.hibernate:hibernate-search-analyzers",
+        "org.hibernate:hibernate-core",
+        "org.hibernate.javax.persistence:*",
+        "org.hibernate.common:*",
         "org.jboss.logging:*",
         "org.jboss.shrinkwrap:*",
-        "org.infinispan:infinispan-lucene-directory"
+        "org.infinispan:*",
+        "dom4j:*",
+        "org.javassist:*",
+        "org.javassist:*"
     };
 
     public static Archive<?> createTestArchive(String persistenceUnitConfigurationSource, String cdiBeansConfigurationSource, String warName) {
@@ -76,6 +82,7 @@ public abstract class MemberRegistrationTest {
                         FacesContextStub.class)
                 .addAsResource(persistenceUnitConfigurationSource, "META-INF/persistence.xml")
                 .addAsResource("infinispan.xml", "infinispan.xml")
+                .addAsResource("infinispan-ogm-config.xml", "infinispan-ogm-config.xml")
                 .addAsWebInfResource(cdiBeansConfigurationSource, "beans.xml")
                 .addAsWebInfResource(new StringAsset("<faces-config version=\"2.0\"/>"), "faces-config.xml")
                 .addAsWebInfResource("jboss-deployment-structure.xml", "jboss-deployment-structure.xml")
@@ -93,13 +100,7 @@ public abstract class MemberRegistrationTest {
                         )
                 .addAsLibraries(
                         resolver
-                            .artifact("org.infinispan:infinispan-lucene-directory:5.1.5.FINAL")
-                            .exclusions(dependencyExclusions)
-                            .resolveAs(JavaArchive.class)
-                        )
-                .addAsLibraries(
-                        resolver
-                            .artifact("org.hibernate.ogm:hibernate-ogm-infinispan:4.0.0-SNAPSHOT")
+                            .artifact("org.infinispan:infinispan-lucene-directory:5.1.5.FINAL") //MUST MATCH the Infinispan version of the AS
                             .exclusions(dependencyExclusions)
                             .resolveAs(JavaArchive.class)
                         )
