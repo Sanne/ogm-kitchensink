@@ -126,6 +126,22 @@ public class MemberRegistrationTest {
 
         members = membersRegister.getMembers();
         assertEquals(1, members.size());
+
+        //now test sorting on multiple names:
+        memberController.initNewMember();
+        newMember = memberController.getNewMember();
+        newMember.setName("Alan Doe");
+        newContactDetails = memberController.getContactDetails();
+
+        newContactDetails.setEmail("alan@mailinator.com");
+        newContactDetails.setPhoneNumber("3125551234");
+
+        memberController.register();
+        members = membersRegister.getMembers();
+        assertEquals(2, members.size());
+
+        assertEquals("Alan Doe", members.get(0).getName());
+        assertEquals("Jane Doe", members.get(1).getName());
     }
 
 }
