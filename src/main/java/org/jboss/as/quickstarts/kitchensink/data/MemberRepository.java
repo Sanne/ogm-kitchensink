@@ -22,11 +22,11 @@ import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+import org.hibernate.search.jpa.FullTextEntityManager;
 import org.jboss.as.quickstarts.kitchensink.model.Member;
 
 
@@ -34,7 +34,7 @@ import org.jboss.as.quickstarts.kitchensink.model.Member;
 public class MemberRepository {
 
    @Inject
-   private EntityManager em;
+   private FullTextEntityManager em;
 
    public Member findById(Long id) {
       return em.find(Member.class, id);
