@@ -17,8 +17,9 @@
 package org.jboss.as.quickstarts.kitchensink.test;
 
 import java.io.File;
-import javax.enterprise.inject.Produces;
-import javax.enterprise.inject.spi.InjectionPoint;
+import java.util.List;
+import java.util.logging.Logger;
+
 import javax.inject.Inject;
 
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -33,7 +34,6 @@ import org.jboss.as.quickstarts.kitchensink.rest.MemberResourceRESTService;
 import org.jboss.as.quickstarts.kitchensink.service.MemberRegistration;
 import org.jboss.as.quickstarts.kitchensink.util.QueryHelper;
 import org.jboss.as.quickstarts.kitchensink.util.Resources;
-import org.jboss.logging.Logger;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
@@ -44,6 +44,7 @@ import org.jboss.shrinkwrap.resolver.api.maven.MavenDependencyResolver;
 import org.junit.Test;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertEquals;
 
 public class MemberRegistrationTest {
 
@@ -99,11 +100,18 @@ public class MemberRegistrationTest {
     MemberController memberController;
 
     @Inject
+    MemberListProducer membersRegister;
+
+    @Inject
     Logger log;
 
     @Test
     public void testRegister() throws Exception {
         FacesContextStub.setCurrentInstance(new FacesContextStub("test"));
+
+        List<Member> members = membersRegister.getMembers();
+        assertEquals(0, members.size());
+
         Member newMember = memberController.getNewMember();
         newMember.setName("Jane Doe");
 
@@ -115,10 +123,9 @@ public class MemberRegistrationTest {
 
         assertNotNull(newMember.getId());
         log.info(newMember.getName() + " was persisted with id " + newMember.getId());
+
+        members = membersRegister.getMembers();
+        assertEquals(1, members.size());
     }
 
-    @Produces
-    public Logger produceLog(InjectionPoint injectionPoint) {
-        return Logger.getLogger(injectionPoint.getMember().getDeclaringClass());
-    }
 }
