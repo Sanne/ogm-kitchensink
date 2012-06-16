@@ -16,6 +16,9 @@ ogm-kitchensink is a [OGM](http://www.hibernate.org/subprojects/ogm.html) demo a
 ## How to build it
 
 * Set the environment variable JBOSS_HOME and ensure that it points to the installation directory of a JBoss AS 7 installation (tested against JBoss AS 7.1.1.Final "Brontes")
+* Install the Hibernate OGM module (needs to be only executes once)
+
+         $ mvn groovy:execute
 
 * Start JBoss AS 7
 

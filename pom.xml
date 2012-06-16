@@ -283,30 +283,47 @@
                 <version>7.1.1.Final</version>
             </plugin>
             <plugin>
-            <artifactId>maven-dependency-plugin</artifactId>
-            <executions>
-                <execution>
-                    <id>unpack</id>
-                    <phase>process-test-classes</phase>
-                    <goals>
-                        <goal>unpack</goal>
-                    </goals>
-                    <configuration>
-                        <artifactItems>
-                            <artifactItem>
-                                <groupId>org.jboss.as</groupId>
-                                <artifactId>jboss-as-dist</artifactId>
-                                <version>7.1.1.Final</version>
-                                <type>zip</type>
-                                <overWrite>false</overWrite>
-                                <outputDirectory>target</outputDirectory>
-                            </artifactItem>
-                        </artifactItems>
-                    </configuration>
-                </execution>
-            </executions>
-        </plugin>
-
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>unpack</id>
+                        <phase>process-test-classes</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>org.jboss.as</groupId>
+                                    <artifactId>jboss-as-dist</artifactId>
+                                    <version>7.1.1.Final</version>
+                                    <type>zip</type>
+                                    <overWrite>false</overWrite>
+                                    <outputDirectory>target</outputDirectory>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.gmaven</groupId>
+                <artifactId>gmaven-plugin</artifactId>
+                <version>1.3</version>
+                <configuration>
+                    <source>
+                        log.info('Copying OGM module into AS7')
+                        def env = System.getenv()
+                        def toDir = new File(env.JBOSS_HOME, 'modules')
+                        def fromDir = new File(project.basedir, '.openshift/config/modules')
+                        ant.copy(todir: toDir) {
+                            fileset(dir: fromDir) {
+                                exclude(name: 'README')
+                            }
+                        }
+                    </source>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
