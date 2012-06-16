@@ -66,7 +66,10 @@
         <module name="org.jboss.jandex"/>
         <module name="org.jboss.marshalling"/>
         <module name="org.jboss.marshalling.river" services="import"/>
-        <module name="org.jgroups" services="import"/>
+        <module name="org.jgroups"/>
+
+        <!-- Allow Hibernate ORM to load com.arjuna.ats.jta.TransactionManager -->
+        <module name="org.jboss.jts"/>
     </dependencies>
 
 </module>
