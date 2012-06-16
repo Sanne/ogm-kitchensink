@@ -30,15 +30,17 @@ import org.hibernate.search.jpa.FullTextEntityManager;
 import org.jboss.as.quickstarts.kitchensink.model.Member;
 
 @ApplicationScoped
-public class CriteriaMemberRepository {
+public class CriteriaMemberRepository implements MemberRepository {
 
     @Inject
     private FullTextEntityManager em;
 
+    @Override
     public Member findById(Long id) {
         return em.find(Member.class, id);
     }
 
+    @Override
     public Member findByEmail(String email) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Member> criteria = cb.createQuery(Member.class);
@@ -50,6 +52,7 @@ public class CriteriaMemberRepository {
         return em.createQuery(criteria).getSingleResult();
     }
 
+    @Override
     public List<Member> findAllOrderedByName() {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Member> criteria = cb.createQuery(Member.class);

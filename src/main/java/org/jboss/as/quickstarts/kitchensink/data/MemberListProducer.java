@@ -32,7 +32,7 @@ import org.jboss.as.quickstarts.kitchensink.model.Member;
 public class MemberListProducer {
 
     @Inject
-    private CriteriaMemberRepository memberRepository;
+    private MemberRepository memberRepository;
 
     private List<Member> members;
 

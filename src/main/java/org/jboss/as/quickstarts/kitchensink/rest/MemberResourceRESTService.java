@@ -40,7 +40,7 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.jboss.as.quickstarts.kitchensink.data.CriteriaMemberRepository;
+import org.jboss.as.quickstarts.kitchensink.data.MemberRepository;
 import org.jboss.as.quickstarts.kitchensink.model.ContactDetails;
 import org.jboss.as.quickstarts.kitchensink.model.Member;
 import org.jboss.as.quickstarts.kitchensink.service.MemberRegistration;
@@ -60,7 +60,7 @@ public class MemberResourceRESTService {
     private Validator validator;
 
     @Inject
-    private CriteriaMemberRepository repository;
+    private MemberRepository repository;
 
     @Inject
     MemberRegistration registration;

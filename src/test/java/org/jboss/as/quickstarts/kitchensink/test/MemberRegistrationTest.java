@@ -26,6 +26,7 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.as.quickstarts.kitchensink.controller.MemberController;
 import org.jboss.as.quickstarts.kitchensink.data.MemberListProducer;
 import org.jboss.as.quickstarts.kitchensink.data.CriteriaMemberRepository;
+import org.jboss.as.quickstarts.kitchensink.data.MemberRepository;
 import org.jboss.as.quickstarts.kitchensink.model.ContactDetails;
 import org.jboss.as.quickstarts.kitchensink.model.Member;
 import org.jboss.as.quickstarts.kitchensink.rest.JaxRsActivator;
@@ -68,6 +69,7 @@ public class MemberRegistrationTest {
                         MemberController.class,
                         MemberListProducer.class,
                         CriteriaMemberRepository.class,
+                        MemberRepository.class,
                         ContactDetails.class,
                         Member.class,
                         JaxRsActivator.class,
