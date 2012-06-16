@@ -22,7 +22,6 @@ import javax.enterprise.inject.spi.InjectionPoint;
 import javax.inject.Inject;
 
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.as.quickstarts.kitchensink.controller.MemberController;
 import org.jboss.as.quickstarts.kitchensink.data.MemberListProducer;
 import org.jboss.as.quickstarts.kitchensink.data.CriteriaMemberRepository;
@@ -43,11 +42,9 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.resolver.api.DependencyResolvers;
 import org.jboss.shrinkwrap.resolver.api.maven.MavenDependencyResolver;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import static org.junit.Assert.assertNotNull;
 
-@RunWith(Arquillian.class)
 public class MemberRegistrationTest {
 
     private static String[] dependencyExclusions = {
@@ -66,6 +63,7 @@ public class MemberRegistrationTest {
         return ShrinkWrap
                 .create(WebArchive.class, "test.war")
                 .addClasses(
+                        MemberRegistrationTest.class,
                         MemberController.class,
                         MemberListProducer.class,
                         CriteriaMemberRepository.class,
