@@ -236,6 +236,11 @@
             <artifactId>hibernate-search</artifactId>
             <version>${hibernateSearchVersion}</version>
         </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-search-infinispan</artifactId>
+            <version>${hibernateSearchVersion}</version>
+        </dependency>
 
         <dependency>
             <groupId>org.slf4j</groupId>

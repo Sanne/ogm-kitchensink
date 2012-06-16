@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jboss-deployment-structure>
     <deployment>
-        <!-- only needed when trying to access the Infinispan cache directly. -->
+        <!-- only needed when trying to access the JBoss AS managed Infinispan instance (we start our own).
         <dependencies>
             <module name="org.infinispan"/>
         </dependencies>
+         -->
     </deployment>
 </jboss-deployment-structure>

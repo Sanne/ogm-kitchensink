@@ -50,7 +50,8 @@ public abstract class MemberRegistrationTest {
     public final static String[] dependencyExclusions = {
         "org.hibernate:hibernate-search-analyzers",
         "org.jboss.logging:*",
-        "org.jboss.shrinkwrap:*"
+        "org.jboss.shrinkwrap:*",
+        "org.infinispan:infinispan-lucene-directory"
     };
 
     public static Archive<?> createTestArchive(String persistenceUnitConfigurationSource, String cdiBeansConfigurationSource, String warName) {
@@ -81,6 +82,18 @@ public abstract class MemberRegistrationTest {
                 .addAsLibraries(
                         resolver
                             .artifact("org.hibernate:hibernate-search-orm:4.1.1.Final")
+                            .exclusions(dependencyExclusions)
+                            .resolveAs(JavaArchive.class)
+                        )
+                .addAsLibraries(
+                        resolver
+                            .artifact("org.hibernate:hibernate-search-infinispan:4.1.1.Final")
+                            .exclusions(dependencyExclusions)
+                            .resolveAs(JavaArchive.class)
+                        )
+                .addAsLibraries(
+                        resolver
+                            .artifact("org.infinispan:infinispan-lucene-directory:5.1.5.FINAL")
                             .exclusions(dependencyExclusions)
                             .resolveAs(JavaArchive.class)
                         )
