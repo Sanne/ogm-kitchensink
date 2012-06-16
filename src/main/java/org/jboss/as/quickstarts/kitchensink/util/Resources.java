@@ -28,6 +28,8 @@ import javax.persistence.PersistenceContext;
 import org.hibernate.search.SearchFactory;
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.Search;
+import org.hibernate.search.query.dsl.QueryBuilder;
+import org.jboss.as.quickstarts.kitchensink.model.Member;
 
 /**
  * This class uses CDI to alias Java EE resources, such as the persistence context, to CDI beans
@@ -54,6 +56,11 @@ public class Resources {
     @Produces
     public SearchFactory getSearchFactory() {
         return getFullTextEntityManager().getSearchFactory();
+    }
+
+    @Produces
+    public QueryBuilder getMemberQueryBuilder() {
+        return getSearchFactory().buildQueryBuilder().forEntity(Member.class).get();
     }
 
     @Produces
