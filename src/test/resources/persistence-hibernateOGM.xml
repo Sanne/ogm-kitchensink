@@ -14,7 +14,7 @@
 
             <!-- Properties for Hibernate Search -->
             <property name="hibernate.search.default.directory_provider" value="infinispan" />
-            <property name="hibernate.search.default.infinispan.configuration_resourcename" value="infinispan.xml" />
+            <property name="hibernate.search.infinispan.configuration_resourcename" value="infinispan.xml" />
         </properties>
 
     </persistence-unit>

@@ -1,43 +1,114 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!--
-    infinispan.xml
-    This is the testing configuration, running in LOCAL clustering mode to speedup tests.
--->
+ * Hibernate, Relational Persistence for Idiomatic Java
+ * 
+ * Copyright (c) 2012, Red Hat, Inc. and/or its affiliates or third-party contributors as
+ * indicated by the @author tags or express copyright attribution
+ * statements applied by the authors.  All third-party contributions are
+ * distributed under license by Red Hat, Inc.
+ * 
+ * This copyrighted material is made available to anyone wishing to use, modify,
+ * copy, or redistribute it subject to the terms and conditions of the GNU
+ * Lesser General Public License, as published by the Free Software Foundation.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License
+ * for more details.
+ * 
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this distribution; if not, write to:
+ * Free Software Foundation, Inc.
+ * 51 Franklin Street, Fifth Floor
+ * Boston, MA  02110-1301  USA
+  -->
 <infinispan
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="urn:infinispan:config:5.1 http://www.infinispan.org/schemas/infinispan-config-5.1.xsd"
     xmlns="urn:infinispan:config:5.1">
 
+    <!-- *************************** -->
+    <!-- System-wide global settings -->
+    <!-- *************************** -->
+
     <global>
+
+        <!-- Duplicate domains are allowed so that multiple deployments with default configuration 
+            of Hibernate Search applications work - if possible it would be better to use JNDI to share 
+            the CacheManager across applications -->
+        <globalJmxStatistics
+            enabled="true"
+            cacheManagerName="HibernateSearch"
+            allowDuplicateDomains="true" />
+
+        <!-- Note that the JGroups transport uses sensible defaults if no configuration property 
+            is defined. See the Infinispan wiki for more JGroups settings:
+            http://community.jboss.org/wiki/ClusteredConfigurationQuickStart -->
+
+        <!-- Used to register JVM shutdown hooks. hookBehavior: DEFAULT, REGISTER, DONT_REGISTER. 
+            Hibernate Search takes care to stop the CacheManager so registering is not needed -->
+        <shutdown
+            hookBehavior="DONT_REGISTER" />
+
     </global>
 
     <!-- *************************** -->
-    <!--   Default cache settings    -->
+    <!-- Default "template" settings -->
     <!-- *************************** -->
 
     <default>
+
+        <locking
+            lockAcquisitionTimeout="20000"
+            writeSkewCheck="false"
+            concurrencyLevel="500"
+            useLockStriping="false" />
+
+        <!-- Invocation batching is required for use with the Lucene Directory -->
+        <invocationBatching
+            enabled="true" />
+
+        <jmxStatistics
+            enabled="true" />
+
+        <eviction
+            maxEntries="-1"
+            strategy="NONE" />
+
+        <expiration
+            maxIdle="-1" />
+
     </default>
 
+    <!-- ******************************************************************************* -->
+    <!-- Individually configured "named" caches.                                         -->
+    <!--                                                                                 -->
+    <!-- While default configuration happens to be fine with similar settings across the -->
+    <!-- three caches, they should generally be different in a production environment.   -->
+    <!--                                                                                 -->
+    <!-- Current settings could easily lead to OutOfMemory exception as a CacheStore     -->
+    <!-- should be enabled, and maybe distribution is desired.                           -->
+    <!-- ******************************************************************************* -->
+
     <!-- *************************************** -->
-    <!--     Cache to store the OGM entities     -->
+    <!--  Cache to store Lucene's file metadata  -->
     <!-- *************************************** -->
     <namedCache
-        name="ENTITIES">
+        name="LuceneIndexesMetadata">
     </namedCache>
 
-    <!-- *********************************************** -->
-    <!--   Cache to store the relations across entities  -->
-    <!-- *********************************************** -->
+    <!-- **************************** -->
+    <!--  Cache to store Lucene data  -->
+    <!-- **************************** -->
     <namedCache
-        name="ASSOCIATIONS">
+        name="LuceneIndexesData">
     </namedCache>
 
     <!-- ***************************** -->
-    <!--   Cache to store identifiers  -->
+    <!--  Cache to store Lucene locks  -->
     <!-- ***************************** -->
     <namedCache
-        name="IDENTIFIERS">
+        name="LuceneIndexesLocking">
     </namedCache>
 
 </infinispan>
