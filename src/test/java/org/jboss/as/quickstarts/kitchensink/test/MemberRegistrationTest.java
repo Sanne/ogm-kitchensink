@@ -49,8 +49,19 @@ import static org.junit.Assert.assertNotNull;
 @RunWith(Arquillian.class)
 public class MemberRegistrationTest {
 
+    private static String[] dependencyExclusions = {
+        "org.hibernate:hibernate-entitymanager",
+        "org.hibernate:hibernate-core",
+        "org.hibernate:hibernate-search-analyzers",
+        "org.hibernate.common:hibernate-commons-annotations",
+        "org.jboss.logging:jboss-logging",
+        "org.jboss.shrinkwrap:*"
+    };
+
     @Deployment
     public static Archive<?> createTestArchive() {
+        MavenDependencyResolver resolver = DependencyResolvers.use(MavenDependencyResolver.class)
+                .goOffline();// take SNAPSHOTS from your local cache: greatly speedups development
         return ShrinkWrap
                 .create(WebArchive.class, "test.war")
                 .addClasses(
@@ -70,14 +81,18 @@ public class MemberRegistrationTest {
                 .addAsWebInfResource(new File("src/main/webapp/WEB-INF/beans.xml"), "beans.xml")
                 .addAsWebInfResource(new StringAsset("<faces-config version=\"2.0\"/>"), "faces-config.xml")
                 .addAsLibraries(
-                        DependencyResolvers.use( MavenDependencyResolver.class )
-                                .artifact( "org.hibernate:hibernate-search-orm:4.1.1.Final" )
-                                .exclusion( "org.hibernate:hibernate-entitymanager" )
-                                .exclusion( "org.hibernate:hibernate-core" )
-                                .exclusion( "org.hibernate:hibernate-search-analyzers" )
-                                .exclusion( "org.hibernate.common:hibernate-commons-annotations" )
-                                .exclusion( "org.jboss.logging:jboss-logging" )
-                                .resolveAs( JavaArchive.class ) );
+                        resolver
+                            .artifact("org.hibernate:hibernate-search-orm:4.1.1.Final")
+                            .exclusions(dependencyExclusions)
+                            .resolveAs(JavaArchive.class)
+                        )
+                .addAsLibraries(
+                        resolver
+                            .artifact("org.hibernate.ogm:hibernate-ogm-infinispan:4.0.0-SNAPSHOT")
+                            .exclusions(dependencyExclusions)
+                            .resolveAs(JavaArchive.class)
+                        )
+                ;
     }
 
     @Inject
