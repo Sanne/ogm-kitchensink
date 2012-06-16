@@ -25,6 +25,7 @@ import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.hibernate.search.SearchFactory;
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.Search;
 
@@ -48,6 +49,11 @@ public class Resources {
     @Produces
     public FullTextEntityManager getFullTextEntityManager() {
         return Search.getFullTextEntityManager(em);
+    }
+
+    @Produces
+    public SearchFactory getSearchFactory() {
+        return getFullTextEntityManager().getSearchFactory();
     }
 
     @Produces
