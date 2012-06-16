@@ -18,20 +18,35 @@
  */
 package org.jboss.as.quickstarts.kitchensink.test;
 
+import static org.junit.Assert.assertTrue;
+
+import javax.inject.Inject;
+
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.as.quickstarts.kitchensink.data.FullTextMemberRepository;
+import org.jboss.as.quickstarts.kitchensink.data.MemberRepository;
 import org.jboss.shrinkwrap.api.Archive;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /**
- * CriteriaRegistrationTest.
+ * FullTextRegistrationTest.
  */
 @RunWith(Arquillian.class)
-public class CriteriaRegistrationTest extends MemberRegistrationTest {
+public class FullTextRegistrationTest extends MemberRegistrationTest {
 
    @Deployment
    public static Archive<?> createTestArchive() {
-      return MemberRegistrationTest.createTestArchive("persistence-traditional.xml", "beans-empty.xml", "criteria.war");
+      return MemberRegistrationTest.createTestArchive("persistence-traditional.xml", "beans-alternativeQueries.xml", "fulltext.war");
+   }
+
+   @Inject
+   private MemberRepository memberRepository;
+
+   @Test
+   public void testQueryRunViaSearch() throws Exception {
+      assertTrue(memberRepository instanceof FullTextMemberRepository);
    }
 
 }

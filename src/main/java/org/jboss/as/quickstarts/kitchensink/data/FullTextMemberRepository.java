@@ -35,7 +35,7 @@ import org.jboss.as.quickstarts.kitchensink.model.Member;
 public class FullTextMemberRepository extends CriteriaMemberRepository implements MemberRepository {
 
     @Inject
-    public QueryBuilder queryBuilder;
+    private QueryBuilder queryBuilder;
 
     @Inject
     private FullTextEntityManager em;

@@ -41,11 +41,14 @@ public class MemberListProducer {
     @Produces
     @Named
     public List<Member> getMembers() {
+        if (members == null) {
+           retrieveAllMembersOrderedByName();
+        }
         return members;
     }
 
     public void onMemberListChanged(@Observes(notifyObserver = Reception.IF_EXISTS) final Member member) {
-        retrieveAllMembersOrderedByName();
+       members = null;
     }
 
     @PostConstruct

@@ -19,15 +19,14 @@ package org.jboss.as.quickstarts.kitchensink.test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import java.io.File;
 import java.util.List;
 import java.util.logging.Logger;
 
 import javax.inject.Inject;
 
-import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.as.quickstarts.kitchensink.controller.MemberController;
 import org.jboss.as.quickstarts.kitchensink.data.CriteriaMemberRepository;
+import org.jboss.as.quickstarts.kitchensink.data.FullTextMemberRepository;
 import org.jboss.as.quickstarts.kitchensink.data.MemberListProducer;
 import org.jboss.as.quickstarts.kitchensink.data.MemberRepository;
 import org.jboss.as.quickstarts.kitchensink.model.ContactDetails;
@@ -54,16 +53,17 @@ public abstract class MemberRegistrationTest {
         "org.jboss.shrinkwrap:*"
     };
 
-    public static Archive<?> createTestArchive(String persistenceUnitConfigurationSource, String cdiBeansConfigurationSource) {
+    public static Archive<?> createTestArchive(String persistenceUnitConfigurationSource, String cdiBeansConfigurationSource, String warName) {
         MavenDependencyResolver resolver = DependencyResolvers.use(MavenDependencyResolver.class)
                 .goOffline();// take SNAPSHOTS from your local cache: greatly speedups development
         return ShrinkWrap
-                .create(WebArchive.class, "test.war")
+                .create(WebArchive.class, warName)
                 .addClasses(
                         MemberRegistrationTest.class,
                         MemberController.class,
                         MemberListProducer.class,
                         CriteriaMemberRepository.class,
+                        FullTextMemberRepository.class,
                         MemberRepository.class,
                         ContactDetails.class,
                         Member.class,
