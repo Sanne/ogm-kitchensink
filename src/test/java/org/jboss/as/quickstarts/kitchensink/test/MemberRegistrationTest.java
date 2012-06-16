@@ -46,7 +46,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertEquals;
 
-public class MemberRegistrationTest {
+public abstract class MemberRegistrationTest {
 
     private static String[] dependencyExclusions = {
         "org.hibernate:hibernate-entitymanager",
