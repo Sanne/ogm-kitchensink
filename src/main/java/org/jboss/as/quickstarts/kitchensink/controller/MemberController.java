@@ -51,6 +51,8 @@ public class MemberController {
         return newMember;
     }
 
+    @Produces
+    @Named
     public ContactDetails getContactDetails() {
         return contactDetails;
     }

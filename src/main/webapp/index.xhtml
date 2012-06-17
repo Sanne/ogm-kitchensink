@@ -24,7 +24,7 @@
                         <h:outputLabel for="email" value="Email:"/>
                     </th>
                     <td>
-                        <h:inputText id="email" value="#{newContactDetails.email}"/>
+                        <h:inputText id="email" value="#{contactDetails.email}"/>
                         <h:message for="email" errorClass="invalid"/>
                     </td>
                 </tr>
@@ -33,13 +33,13 @@
                         <h:outputLabel for="phoneNumber" value="Phone #:"/>
                     </th>
                     <td>
-                        <h:inputText id="phoneNumber" value="#{newContactDetails.phoneNumber}"/>
+                        <h:inputText id="phoneNumber" value="#{contactDetails.phoneNumber}"/>
                         <h:message for="phoneNumber" errorClass="invalid"/>
                     </td>
                 </tr>
             </table>
             <p>
-                <h:commandButton id="register" action="#{memberRegistration.register}" value="Register"/>
+                <h:commandButton id="register" action="#{memberController.register}" value="Register"/>
                 <h:outputText value=" Registered!"
                               rendered="#{facesContext.postback and empty facesContext.messageList}"
                               style="color: green;"/>

@@ -22,6 +22,7 @@ import org.jboss.as.quickstarts.kitchensink.model.Member;
 import javax.ejb.Stateless;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
+
 import java.util.logging.Logger;
 
 // The @Stateless annotation eliminates the need for manual transaction demarcation

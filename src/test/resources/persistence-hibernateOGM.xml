@@ -10,11 +10,16 @@
 
         <properties>
             <!-- Configure Hibernate OGM to mount Infinispan -->
-            <property name="hibernate.ogm.infinispan.configuration_resourcename" value="infinispan-ogm-config.xml" />
+            <property name="hibernate.ogm.datastore.provider"
+                    value="org.hibernate.ogm.datastore.infinispan.impl.InfinispanDatastoreProvider"/>
+            <property
+                    name="hibernate.ogm.infinispan.configuration_resourcename" value="infinispan-ogm-config.xml" />
 
             <!-- Properties for Hibernate Search -->
-            <property name="hibernate.search.default.directory_provider" value="infinispan" />
-            <property name="hibernate.search.infinispan.configuration_resourcename" value="infinispan.xml" />
+            <property
+                    name="hibernate.search.default.directory_provider" value="infinispan" />
+            <property
+                    name="hibernate.search.infinispan.configuration_resourcename" value="infinispan.xml" />
         </properties>
 
     </persistence-unit>
