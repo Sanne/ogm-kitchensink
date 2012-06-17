@@ -31,6 +31,8 @@ import org.apache.lucene.search.Sort;
 import org.apache.lucene.search.SortField;
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.Search;
+import org.hibernate.search.query.DatabaseRetrievalMethod;
+import org.hibernate.search.query.ObjectLookupMethod;
 import org.hibernate.search.query.dsl.QueryBuilder;
 import org.jboss.as.quickstarts.kitchensink.model.Member;
 
@@ -57,7 +59,8 @@ public class FullTextMemberRepository implements MemberRepository {
                 .createQuery();
         FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(em);
         List resultList = fullTextEntityManager.createFullTextQuery(luceneQuery)
-                .getResultList();
+              .initializeObjectsWith(ObjectLookupMethod.SKIP, DatabaseRetrievalMethod.FIND_BY_ID)
+              .getResultList();
         if (resultList.size()>0) {
             return (Member) resultList.get(0);
         }
@@ -73,8 +76,9 @@ public class FullTextMemberRepository implements MemberRepository {
                 .createQuery();
         FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(em);
         List resultList = fullTextEntityManager.createFullTextQuery(luceneQuery)
-                .setSort(new Sort(new SortField("sortableStoredName", SortField.STRING_VAL)))
-                .getResultList();
+              .initializeObjectsWith(ObjectLookupMethod.SKIP, DatabaseRetrievalMethod.FIND_BY_ID)
+              .setSort(new Sort(new SortField("sortableStoredName", SortField.STRING_VAL)))
+              .getResultList();
         return resultList;
     }
 
