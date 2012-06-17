@@ -33,11 +33,13 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Proxy;
 import org.hibernate.search.annotations.*;
 
 @Entity
 @XmlRootElement
 @Indexed
+@Proxy(lazy=false)
 public class Member implements Serializable {
 
     @Id
