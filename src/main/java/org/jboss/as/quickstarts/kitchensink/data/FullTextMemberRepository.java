@@ -46,7 +46,7 @@ public class FullTextMemberRepository implements MemberRepository {
     private EntityManager em;
 
     @Override
-    public Member findById(Long id) {
+    public Member findById(String id) {
         return em.find(Member.class, id);
     }
 

@@ -24,7 +24,7 @@ import org.jboss.as.quickstarts.kitchensink.model.Member;
 
 public interface MemberRepository {
 
-    public abstract Member findById(Long id);
+    public abstract Member findById(String id);
 
     public abstract Member findByEmail(String email);
 
