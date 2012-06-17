@@ -2,10 +2,9 @@
 <jboss-deployment-structure>
     <deployment>
         <dependencies>
-            <module name="org.hibernate" slot="ogm"/>
-        <!-- only needed when trying to access the JBoss AS managed Infinispan instance (we start our own).
-            <module name="org.infinispan"/>
-         -->
+
+            <module name="org.hibernate" slot="ogm" />
+
         </dependencies>
     </deployment>
 </jboss-deployment-structure>

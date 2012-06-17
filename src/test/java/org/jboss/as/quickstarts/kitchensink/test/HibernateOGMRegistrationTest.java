@@ -25,30 +25,13 @@ import org.junit.runner.RunWith;
 
 /**
  * HibernateOGMRegistrationTest.
- * 
  */
 @RunWith(Arquillian.class)
 public class HibernateOGMRegistrationTest extends MemberRegistrationTest {
 
-   @Deployment//(order=2, testable=true)
+   @Deployment
    public static Archive<?> createTestArchive() {
       return MemberRegistrationTest.createTestArchive("persistence-hibernateOGM.xml", "beans-alternativeQueries.xml", "hibernate-ogm.war");
    }
-
-   /*
-   @Deployment(order=1, testable=false)
-   public static Archive<?> defineOGMModule() {
-      MavenDependencyResolver resolver = getMavenResolver();
-      return ShrinkWrap.create(WebArchive.class, "hibernate-ogm-module")
-            .addAsResource("ogm-module.xml", "module.xml")
-            .addAsLibraries(
-                  resolver
-                      .artifact("org.hibernate.ogm:hibernate-ogm-infinispan:4.0.0-SNAPSHOT")
-                      .exclusions(dependencyExclusions)
-                      .resolveAs(JavaArchive.class)
-                  )
-                  ;
-   }
-   */
 
 }
