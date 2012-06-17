@@ -20,25 +20,33 @@ package org.jboss.as.quickstarts.kitchensink.data;
 
 import java.util.List;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.ejb.Stateless;
 import javax.enterprise.inject.Alternative;
 import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.Sort;
 import org.apache.lucene.search.SortField;
 import org.hibernate.search.jpa.FullTextEntityManager;
+import org.hibernate.search.jpa.Search;
 import org.hibernate.search.query.dsl.QueryBuilder;
 import org.jboss.as.quickstarts.kitchensink.model.Member;
 
-@ApplicationScoped @Alternative
-public class FullTextMemberRepository extends CriteriaMemberRepository implements MemberRepository {
+@Stateless @Alternative
+public class FullTextMemberRepository implements MemberRepository {
 
     @Inject
     private QueryBuilder queryBuilder;
 
-    @Inject
-    private FullTextEntityManager em;
+    @PersistenceContext(unitName="kitchen")
+    private EntityManager em;
+
+    @Override
+    public Member findById(Long id) {
+        return em.find(Member.class, id);
+    }
 
     @Override
     public Member findByEmail(String email) {
@@ -47,7 +55,8 @@ public class FullTextMemberRepository extends CriteriaMemberRepository implement
                     .onField("contactDetails.email")
                 .matching(email)
                 .createQuery();
-        List resultList = em.createFullTextQuery(luceneQuery)
+        FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(em);
+        List resultList = fullTextEntityManager.createFullTextQuery(luceneQuery)
                 .getResultList();
         if (resultList.size()>0) {
             return (Member) resultList.get(0);
@@ -62,7 +71,8 @@ public class FullTextMemberRepository extends CriteriaMemberRepository implement
         Query luceneQuery = queryBuilder
                 .all()
                 .createQuery();
-        List resultList = em.createFullTextQuery(luceneQuery)
+        FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(em);
+        List resultList = fullTextEntityManager.createFullTextQuery(luceneQuery)
                 .setSort(new Sort(new SortField("sortableStoredName", SortField.STRING_VAL)))
                 .getResultList();
         return resultList;
