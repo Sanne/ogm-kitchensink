@@ -45,6 +45,9 @@
                     name="hibernate.search.infinispan.configuration_resourcename" value="infinispan.xml" />
         </properties>
 
+        <class>org.jboss.as.quickstarts.kitchensink.model.Member</class>
+        <class>org.jboss.as.quickstarts.kitchensink.model.ContactDetails</class>
+
     </persistence-unit>
 
 </persistence>

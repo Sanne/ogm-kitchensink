@@ -43,6 +43,9 @@
             <property name="hibernate.search.default.directory_provider" value="ram" />
         </properties>
 
+        <class>org.jboss.as.quickstarts.kitchensink.model.Member</class>
+        <class>org.jboss.as.quickstarts.kitchensink.model.ContactDetails</class>
+
     </persistence-unit>
 
 </persistence>
