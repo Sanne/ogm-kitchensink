@@ -29,20 +29,24 @@
         http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
 
    <persistence-unit name="kitchen">
-      <provider>org.hibernate.ejb.HibernatePersistence</provider>
-
-        <!-- Default H2 example data source of AS 7 -->
-        <jta-data-source>java:jboss/datasources/ExampleDS</jta-data-source>
+      <provider>org.hibernate.ogm.jpa.HibernateOgmPersistence</provider>
 
         <properties>
-            <!-- Properties for Hibernate -->
-            <property name="hibernate.hbm2ddl.auto" value="create-drop" />
-            <property name="hibernate.show_sql" value="true" />
+            <!-- Configure Hibernate OGM to mount Infinispan -->
+            <property name="hibernate.ogm.datastore.provider"
+                    value="org.hibernate.ogm.datastore.infinispan.impl.InfinispanDatastoreProvider"/>
+            <property
+                    name="hibernate.ogm.infinispan.configuration_resourcename" value="infinispan-ogm-config.xml" />
 
             <!-- Properties for Hibernate Search -->
-            <property name="hibernate.search.default.directory_provider" value="infinispan" />
-            <property name="hibernate.search.infinispan.configuration_resourcename" value="infinispan.xml" />
+            <property
+                    name="hibernate.search.default.directory_provider" value="infinispan" />
+            <property
+                    name="hibernate.search.infinispan.configuration_resourcename" value="infinispan.xml" />
         </properties>
+
+        <class>org.jboss.as.quickstarts.kitchensink.model.Member</class>
+        <class>org.jboss.as.quickstarts.kitchensink.model.ContactDetails</class>
 
     </persistence-unit>
 
