@@ -57,6 +57,9 @@
             transactionManagerLookupClass="org.infinispan.transaction.lookup.JBossTransactionManagerLookup">
         </transaction>
 
+        <jmxStatistics
+            enabled="true" />
+
         <eviction
             strategy="NONE" />
 
