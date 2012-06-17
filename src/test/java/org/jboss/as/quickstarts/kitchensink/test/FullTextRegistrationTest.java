@@ -24,7 +24,6 @@ import javax.inject.Inject;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.as.quickstarts.kitchensink.data.FullTextMemberRepository;
 import org.jboss.as.quickstarts.kitchensink.data.MemberRepository;
 import org.jboss.shrinkwrap.api.Archive;
 import org.junit.Test;
@@ -46,7 +45,7 @@ public class FullTextRegistrationTest extends MemberRegistrationTest {
 
    @Test
    public void testQueryRunViaSearch() throws Exception {
-      assertTrue(memberRepository instanceof FullTextMemberRepository);
+      assertTrue(memberRepository.toString().endsWith("FullTextMemberRepository")); //trick to verify the type from the CDI proxy
    }
 
 }
